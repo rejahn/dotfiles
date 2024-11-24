@@ -18,3 +18,4 @@ vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>')
 -- line numbers setting
 vim.wo.relativenumber = true
 vim.wo.number = true
+vim.g.colorscheme = "catppuccin-mocha"

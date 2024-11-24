@@ -20,7 +20,7 @@ return {
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
       local lspconfig = require("lspconfig")
-      lspconfig.tsserver.setup({
+      lspconfig.ts_ls.setup({
         capabilities = capabilities
       })
       lspconfig.solargraph.setup({
@@ -43,6 +43,27 @@ return {
       })
        lspconfig.pyright.setup({
         capabilities = capabilities
+      })
+       lspconfig.rust_analyzer.setup({
+        capabilities = capabilities,
+        cmd = {
+          "rustup",
+          "run",
+          "stable",
+          "rust-analyzer",
+        },
+        settings = {
+          ["rust-analyzer"] = {
+          cargo = {
+            buildScripts = {
+              true,
+            },
+          },
+          procMacro = {
+            enable = true,
+          }
+        }
+      }
       })
 
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})

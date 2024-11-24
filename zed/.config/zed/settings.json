@@ -1,0 +1,154 @@
+{
+  // Auto-update settings
+  "auto_update": true,
+  // Saving settings
+  "autosave": {
+    "after_delay": {
+      "milliseconds": 1000 // Auto-save after 1000 milliseconds of inactivity
+    }
+  },
+  // Editor behavior settings
+  "format_on_save": "on", // Format the file on save
+  "relative_line_numbers": true, // Show line numbers relative to the current line
+  "auto_indent_on_paste": true, // Auto-indent when pasting code
+  // Font settings
+  "buffer_font_features": {
+    "calt": false // Disable font ligatures
+  },
+  "ui_font_size": 16, // Font size for UI elements
+  "border_size": 15.0, // Size of window borders
+  "buffer_font_size": 13, // Font size for code editor
+  "buffer_font_family": "JetBrains Mono", // Font family for code editor
+  // Keymap and Vim mode
+  "base_keymap": "VSCode", // Use VSCode keybindings
+  "vim_mode": true, // Enable Vim mode
+  // Theme settings
+  "theme": {
+    "mode": "system", // Use system theme (light/dark)
+    "light": "Tokyo Night Light", // Theme for light mode
+    "dark": "Tokyo Night" // Theme for dark mode
+  },
+  // Terminal settings
+  "terminal": {
+    "dock": "bottom", // Dock the terminal at the bottom
+    "font_family": "JetBrains Mono", // Font family for terminal
+    "font_size": 14, // Font size for terminal
+    "line_height": "standard" // Line height for terminal
+  },
+  // Extensions settings
+  "auto_install_extensions": {
+    "html": true, // Auto-install HTML extension
+    "dockerfile": true, // Auto-install Dockerfile extension
+    "docker-compose": true, // Auto-install Docker Compose extension
+    "c": true, // Auto-install C extension
+    "cpp": true, // Auto-install C++ extension
+    "python": true, // Auto-install Python extension
+    "rust": true // Auto-install Rust extension
+  },
+  // LSP (Language Server Protocol) settings
+  "lsp": {
+    // Rust settings
+    "rust-analyzer": {
+      "initialization_options": {
+        "check": {
+          "command": "clippy" // Use Clippy for linting
+        },
+        "inlayHints": {
+          "maxLength": 80,
+          "lifetimeElisionHints": {
+            "enable": "skip_trivial",
+            "useParameterNames": true
+          },
+          "closureReturnTypeHints": {
+            "enable": "always"
+          }
+        },
+        "cargo": {
+          "features": "all",
+          "buildScripts": {
+            "enable": true
+          }
+        },
+        "procMacro": {
+          "enable": true
+        }
+      },
+      "settings": {
+        "rust-analyzer": {
+          "checkOnSave": {
+            "command": "clippy" // Check code with Clippy on save
+          },
+          "diagnostics": {
+            "disabled": [
+              "unresolved-proc-macro"
+            ]
+          }
+        }
+      }
+    },
+    // Python settings
+    "pyright": {
+      "settings": {
+        "python": {
+          "analysis": {
+            "autoSearchPaths": true,
+            "useLibraryCodeForTypes": true,
+            "diagnosticMode": "workspace", // Analyze the entire workspace
+            "typeCheckingMode": "basic" // Basic type checking mode
+          },
+          "pythonPath": "/usr/bin/python3" // Path to the Python interpreter
+        }
+      }
+    },
+    // C/C++ settings
+    "clangd": {
+      "command": "clangd",
+      "initialization_options": {
+        "clangdFileStatus": true, // Show file status in the editor
+        "fallbackFlags": [
+          "-std=c++17" // Default compilation flags
+        ]
+      },
+      "settings": {
+        "clangd": {
+          "completion": {
+            "filterAndSort": true
+          },
+          "diagnostics": {
+            "enable": true
+          },
+          "index": {
+            "enable": true
+          }
+        }
+      }
+    },
+    // YAML settings
+    "yaml-language-server": {
+      "settings": {
+        "yaml": {
+          "keyOrdering": false // Enforces alphabetical ordering of keys in maps
+        }
+      }
+    }
+  },
+  // Search settings
+  "search": {
+    "include": [
+      "**/*.rs",
+      "**/Cargo.toml",
+      "**/Cargo.lock",
+      "**/*.py", // Include Python files
+      "**/*.c", // Include C files
+      "**/*.cpp", // Include C++ files
+      "**/*.h", // Include header files
+      "**/*.hpp" // Include C++ header files
+    ],
+    "exclude": [
+      "target/",
+      "**/node_modules/",
+      "build/", // Exclude build directories
+      "dist/" // Exclude distribution directories
+    ]
+  }
+}
