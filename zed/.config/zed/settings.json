@@ -7,6 +7,10 @@
       "milliseconds": 1000 // Auto-save after 1000 milliseconds of inactivity
     }
   },
+  "inlay_hints": {
+    // Global switch to toggle hints on and off
+    "enabled": true
+  },
   // Editor behavior settings
   "format_on_save": "on", // Format the file on save
   "relative_line_numbers": true, // Show line numbers relative to the current line
@@ -51,84 +55,83 @@
     "rust-analyzer": {
       "initialization_options": {
         "check": {
-          "command": "clippy" // Use Clippy for linting
+          // "command": "clippy" // Use Clippy for linting
         },
-        "inlayHints": {
-          "maxLength": 80,
-          "lifetimeElisionHints": {
-            "enable": "skip_trivial",
-            "useParameterNames": true
-          },
-          "closureReturnTypeHints": {
-            "enable": "always"
-          }
+        "inlay_hints": {
+          "enabled": true,
+          "show_type_hints": true,
+          "show_parameter_hints": true,
+          "show_other_hints": true,
+          "edit_debounce_ms": 700,
+          "scroll_debounce_ms": 50
         },
-        "cargo": {
-          "features": "all",
-          "buildScripts": {
-            "enable": true
-          }
-        },
-        "procMacro": {
+        "closureReturnTypeHints": {
+          "enable": "always"
+        }
+      },
+      "cargo": {
+        "features": "all",
+        "buildScripts": {
           "enable": true
         }
       },
-      "settings": {
-        "rust-analyzer": {
-          "checkOnSave": {
-            "command": "clippy" // Check code with Clippy on save
-          },
-          "diagnostics": {
-            "disabled": [
-              "unresolved-proc-macro"
-            ]
-          }
-        }
+      "procMacro": {
+        "enable": true
       }
     },
-    // Python settings
-    "pyright": {
-      "settings": {
-        "python": {
-          "analysis": {
-            "autoSearchPaths": true,
-            "useLibraryCodeForTypes": true,
-            "diagnosticMode": "workspace", // Analyze the entire workspace
-            "typeCheckingMode": "basic" // Basic type checking mode
-          },
-          "pythonPath": "/usr/bin/python3" // Path to the Python interpreter
+    "settings": {
+      "rust-analyzer": {
+        "checkOnSave": {
+          "command": "clippy" // Check code with Clippy on save
+        },
+        "diagnostics": {
+          "disabled": ["unresolved-proc-macro"]
         }
       }
+    }
+  },
+  // Python settings
+  "pyright": {
+    "settings": {
+      "python": {
+        "analysis": {
+          "autoSearchPaths": true,
+          "useLibraryCodeForTypes": true,
+          "diagnosticMode": "workspace", // Analyze the entire workspace
+          "typeCheckingMode": "basic" // Basic type checking mode
+        },
+        "pythonPath": "/usr/bin/python3" // Path to the Python interpreter
+      }
+    }
+  },
+  // C/C++ settings
+  "clangd": {
+    "command": "clangd",
+    "initialization_options": {
+      "clangdFileStatus": true, // Show file status in the editor
+      "fallbackFlags": [
+        "-std=c++20" // Default compilation flags
+      ]
     },
-    // C/C++ settings
-    "clangd": {
-      "command": "clangd",
-      "initialization_options": {
-        "clangdFileStatus": true, // Show file status in the editor
-        "fallbackFlags": [
-          "-std=c++17" // Default compilation flags
-        ]
-      },
-      "settings": {
-        "clangd": {
-          "completion": {
-            "filterAndSort": true
-          },
-          "diagnostics": {
-            "enable": true
-          },
-          "index": {
-            "enable": true
-          }
+    "settings": {
+      "clangd": {
+        "completion": {
+          "filterAndSort": true
+        },
+        "diagnostics": {
+          "enable": true
+        },
+        "index": {
+          "enable": true
         }
       }
-    },
-    // YAML settings
-    "yaml-language-server": {
-      "settings": {
-        "yaml": {
-          "keyOrdering": false // Enforces alphabetical ordering of keys in maps
-        }
+    }
+  },
+  // YAML settings
+  "yaml-language-server": {
+    "settings": {
+      "yaml": {
+        "keyOrdering": false // Enforces alphabetical ordering of keys in maps
       }
     }
   },
@@ -150,5 +153,13 @@
       "build/", // Exclude build directories
       "dist/" // Exclude distribution directories
     ]
+  },
+
+  "language_overrides": {
+    "Rust": {
+      "inlay_hints": {
+        "enabled": true
+      }
+    }
   }
 }
