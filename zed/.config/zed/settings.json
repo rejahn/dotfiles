@@ -11,8 +11,13 @@
     // Global switch to toggle hints on and off
     "enabled": true
   },
+  "show_wrap_guides": true,
+  "wrap_guides": [
+    120
+  ],
   // Editor behavior settings
   "format_on_save": "on", // Format the file on save
+  "formatter": "language_server",
   "relative_line_numbers": true, // Show line numbers relative to the current line
   "auto_indent_on_paste": true, // Auto-indent when pasting code
   // Font settings
@@ -85,7 +90,9 @@
           "command": "clippy" // Check code with Clippy on save
         },
         "diagnostics": {
-          "disabled": ["unresolved-proc-macro"]
+          "disabled": [
+            "unresolved-proc-macro"
+          ]
         }
       }
     }
@@ -154,7 +161,6 @@
       "dist/" // Exclude distribution directories
     ]
   },
-
   "language_overrides": {
     "Rust": {
       "inlay_hints": {
