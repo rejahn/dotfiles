@@ -1,5 +1,9 @@
 {
   // Auto-update settings
+  "telemetry": {
+    "metrics": false,
+    "diagnostics": false
+  },
   "auto_update": true,
   // Saving settings
   "autosave": {
@@ -26,7 +30,7 @@
   },
   "ui_font_size": 16, // Font size for UI elements
   "border_size": 15.0, // Size of window borders
-  "buffer_font_size": 13, // Font size for code editor
+  "buffer_font_size": 14.0, // Font size for code editor
   "buffer_font_family": "JetBrains Mono", // Font family for code editor
   // Keymap and Vim mode
   "base_keymap": "VSCode", // Use VSCode keybindings
@@ -35,7 +39,7 @@
   "theme": {
     "mode": "system", // Use system theme (light/dark)
     "light": "Tokyo Night Light", // Theme for light mode
-    "dark": "Tokyo Night" // Theme for dark mode
+    "dark": "poimandres" // Theme for dark mode
   },
   // Terminal settings
   "terminal": {
