@@ -1,5 +1,17 @@
 {
   // Auto-update settings
+  "remove_trailing_whitespace_on_save": true,
+  "disable_ai": false,
+  "show_whitespaces": "selection",
+  "hard_tabs": false,
+  "show_edit_predictions": false,
+  // Theme settings
+  "theme": {
+    "mode": "system",
+    "light": "One Dark",
+    "dark": "Everforest Dark Hard"
+  },
+  "icon_theme": "Material Icon Theme",
   "telemetry": {
     "metrics": false,
     "diagnostics": false
@@ -8,55 +20,56 @@
   // Saving settings
   "autosave": {
     "after_delay": {
-      "milliseconds": 1000 // Auto-save after 1000 milliseconds of inactivity
+      "milliseconds": 500
     }
   },
-  "inlay_hints": {
-    // Global switch to toggle hints on and off
-    "enabled": true
+  "minimap": {
+    "show": "auto",
+  },
+  "toolbar": {
+    "breadcrumbs": false,
+    "quick_actions": false,
+    "selections_menu": false
   },
   "show_wrap_guides": true,
   "wrap_guides": [
     120
   ],
-  // Editor behavior settings
-  "format_on_save": "on", // Format the file on save
+  "format_on_save": "on",
   "formatter": "language_server",
-  "relative_line_numbers": true, // Show line numbers relative to the current line
-  "auto_indent_on_paste": true, // Auto-indent when pasting code
-  // Font settings
+  "relative_line_numbers": "enabled",
+  "auto_indent_on_paste": true,
   "buffer_font_features": {
-    "calt": false // Disable font ligatures
+    "calt": false
   },
-  "ui_font_size": 16, // Font size for UI elements
-  "border_size": 15.0, // Size of window borders
-  "buffer_font_size": 14.0, // Font size for code editor
-  "buffer_font_family": "JetBrains Mono", // Font family for code editor
-  // Keymap and Vim mode
-  "base_keymap": "VSCode", // Use VSCode keybindings
-  "vim_mode": true, // Enable Vim mode
-  // Theme settings
-  "theme": {
-    "mode": "system", // Use system theme (light/dark)
-    "light": "Tokyo Night Light", // Theme for light mode
-    "dark": "poimandres" // Theme for dark mode
+  "project_panel": {
+    "entry_spacing": "standard",
+    "dock": "left"
   },
-  // Terminal settings
+  "tabs": {
+    "file_icons": true,
+    "git_status": true
+  },
+  "ui_font_size": 16,
+  "buffer_font_size": 14.0,
+  "buffer_font_family": "JetBrains Mono NL",
+  "base_keymap": "SublimeText",
+  "vim_mode": true,
   "terminal": {
-    "dock": "bottom", // Dock the terminal at the bottom
-    "font_family": "JetBrains Mono", // Font family for terminal
-    "font_size": 14, // Font size for terminal
-    "line_height": "standard" // Line height for terminal
+    "dock": "bottom",
+    "font_family": "JetBrains Mono NL",
+    "font_size": 14,
+    "line_height": "standard"
   },
   // Extensions settings
   "auto_install_extensions": {
-    "html": true, // Auto-install HTML extension
-    "dockerfile": true, // Auto-install Dockerfile extension
-    "docker-compose": true, // Auto-install Docker Compose extension
-    "c": true, // Auto-install C extension
-    "cpp": true, // Auto-install C++ extension
-    "python": true, // Auto-install Python extension
-    "rust": true // Auto-install Rust extension
+    "html": true,
+    "dockerfile": true,
+    "docker-compose": true,
+    "c": true,
+    "cpp": true,
+    "python": true,
+    "rust": true
   },
   // LSP (Language Server Protocol) settings
   "lsp": {
@@ -64,7 +77,7 @@
     "rust-analyzer": {
       "initialization_options": {
         "check": {
-          // "command": "clippy" // Use Clippy for linting
+          "command": "clippy" // Use Clippy for linting
         },
         "inlay_hints": {
           "enabled": true,
@@ -78,97 +91,61 @@
           "enable": "always"
         }
       },
-      "cargo": {
-        "features": "all",
-        "buildScripts": {
-          "enable": true
+      "settings": {
+        "rust-analyzer": {
+          "checkOnSave": {
+            "command": "clippy" // Check code with Clippy on save
+          },
+          "diagnostics": {
+            "disabled": [
+              "unresolved-proc-macro"
+            ]
+          }
         }
+      }
+    },
+    // Python settings
+    "pyright": {
+      "settings": {
+        "python": {
+          "analysis": {
+            "autoSearchPaths": true,
+            "useLibraryCodeForTypes": true,
+            "diagnosticMode": "workspace", // Analyze the entire workspace
+            "typeCheckingMode": "basic" // Basic type checking mode
+          },
+          "pythonPath": "/usr/bin/python3" // Path to the Python interpreter
+        }
+      }
+    },
+    // C/C++ settings
+    "clangd": {
+      "initialization_options": {
+        "clangdFileStatus": true, // Show file status in the editor
+        "fallbackFlags": [
+          "-std=c++20" // Default compilation flags
+        ]
       },
-      "procMacro": {
-        "enable": true
-      }
-    },
-    "settings": {
-      "rust-analyzer": {
-        "checkOnSave": {
-          "command": "clippy" // Check code with Clippy on save
-        },
-        "diagnostics": {
-          "disabled": [
-            "unresolved-proc-macro"
-          ]
+      "settings": {
+        "clangd": {
+          "completion": {
+            "filterAndSort": true
+          },
+          "diagnostics": {
+            "enable": true
+          },
+          "index": {
+            "enable": true
+          }
         }
       }
-    }
-  },
-  // Python settings
-  "pyright": {
-    "settings": {
-      "python": {
-        "analysis": {
-          "autoSearchPaths": true,
-          "useLibraryCodeForTypes": true,
-          "diagnosticMode": "workspace", // Analyze the entire workspace
-          "typeCheckingMode": "basic" // Basic type checking mode
-        },
-        "pythonPath": "/usr/bin/python3" // Path to the Python interpreter
-      }
-    }
-  },
-  // C/C++ settings
-  "clangd": {
-    "command": "clangd",
-    "initialization_options": {
-      "clangdFileStatus": true, // Show file status in the editor
-      "fallbackFlags": [
-        "-std=c++20" // Default compilation flags
-      ]
     },
-    "settings": {
-      "clangd": {
-        "completion": {
-          "filterAndSort": true
-        },
-        "diagnostics": {
-          "enable": true
-        },
-        "index": {
-          "enable": true
+    // YAML settings
+    "yaml-language-server": {
+      "settings": {
+        "yaml": {
+          "keyOrdering": false
         }
-      }
-    }
-  },
-  // YAML settings
-  "yaml-language-server": {
-    "settings": {
-      "yaml": {
-        "keyOrdering": false // Enforces alphabetical ordering of keys in maps
-      }
-    }
-  },
-  // Search settings
-  "search": {
-    "include": [
-      "**/*.rs",
-      "**/Cargo.toml",
-      "**/Cargo.lock",
-      "**/*.py", // Include Python files
-      "**/*.c", // Include C files
-      "**/*.cpp", // Include C++ files
-      "**/*.h", // Include header files
-      "**/*.hpp" // Include C++ header files
-    ],
-    "exclude": [
-      "target/",
-      "**/node_modules/",
-      "build/", // Exclude build directories
-      "dist/" // Exclude distribution directories
-    ]
-  },
-  "language_overrides": {
-    "Rust": {
-      "inlay_hints": {
-        "enabled": true
       }
     }
   }

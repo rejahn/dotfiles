@@ -7,15 +7,43 @@
 // from the command palette.
 [
   {
-    "context": "Workspace",
+    "context": "Editor && vim_mode == normal && vim_operator == none && !VimWaiting",
     "bindings": {
-      // "shift shift": "file_finder::Toggle"
+      "shift shift": "file_finder::Toggle",
+      "space e": "workspace::ToggleLeftDock",
+      "space t": "workspace::ToggleBottomDock",
+      "space r n": "search::ToggleReplace",
+      "space n": "workspace::ToggleLeftDock",
+      "space f": "buffer_search::Deploy"
     }
   },
   {
     "context": "Editor",
     "bindings": {
+      // "g e": "editor::GoToDiagnostic"
       // "j k": ["workspace::SendKeystrokes", "escape"]
+    }
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "escape": "workspace::ToggleLeftDock"
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "cmd-n": "workspace::NewTerminal",
+      "cmd-d": "pane::CloseActiveItem",
+      "cmd-t": "workspace::ToggleBottomDock",
+      "cmd-shift-f": "workspace::ToggleZoom",
+      "escape": "workspace::ToggleBottomDock"
+    }
+  },
+  {
+    "context": "BufferSearchBar",
+    "bindings": {
+      "space r": "search::ToggleReplace"
     }
   }
 ]
