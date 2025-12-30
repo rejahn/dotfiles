@@ -20,10 +20,10 @@ return {
                 "clangd",
                 "cmake",
                 "autotools_ls",
-                "html",
 
                 -- extra
                 "ansiblels",
+                "ruff",
             },
         },
     },
@@ -36,30 +36,23 @@ return {
         "neovim/nvim-lspconfig",
         lazy = false,
         config = function()
-            --------------------------------------------------------------------------
             -- capabilities (for nvim-cmp)
-            --------------------------------------------------------------------------
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             local ok_cmp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
             if ok_cmp then
                 capabilities = cmp_lsp.default_capabilities(capabilities)
             end
 
-            --------------------------------------------------------------------------
-            -- diagnostics (clean UI)
-            --------------------------------------------------------------------------
+            -- diagnostics
             vim.diagnostic.config({
                 virtual_text = false,
                 signs = true,
                 underline = false,
                 update_in_insert = false,
                 severity_sort = true,
-                virtual_lines = { current_line = true }
+                virtual_lines = { current_line = true },
             })
 
-
-
-            -- diagnostic signs
             local signs = { Error = "●", Warn = "●", Hint = "●", Info = "●" }
             for type, icon in pairs(signs) do
                 local hl = "DiagnosticSign" .. type
@@ -67,9 +60,7 @@ return {
             end
 
 
-            --------------------------------------------------------------------------
             -- on_attach: per-buffer keymaps & behaviour
-            --------------------------------------------------------------------------
             local on_attach = function(client, bufnr)
                 local map = function(mode, lhs, rhs, desc)
                     vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
@@ -96,14 +87,11 @@ return {
                 vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
             end
 
-            --------------------------------------------------------------------------
             -- format on save, preferring specific servers per language
-            --------------------------------------------------------------------------
             vim.api.nvim_create_autocmd("BufWritePre", {
                 callback = function(ev)
                     local ft = vim.bo[ev.buf].filetype
 
-                    -- prefer certain servers per filetype
                     local preferred
                     if ft == "rust" then
                         preferred = "rust_analyzer"
@@ -126,29 +114,12 @@ return {
                 end,
             })
 
-            --------------------------------------------------------------------------
-            -- helper for configuring servers (Neovim 0.11+ API)
-            --------------------------------------------------------------------------
-            local function cfg(name, config)
-                config = config or {}
-                config.capabilities = capabilities
-                config.on_attach = on_attach
+            -- LSP server configurations
 
-                vim.lsp.config(name, config)
-                vim.lsp.enable(name) -- auto-attach on matching filetypes, incl. new files
-            end
-
-            --------------------------------------------------------------------------
-            -- Server configurations
-            --------------------------------------------------------------------------
-            -- JS / TS
-            cfg("ts_ls")
-
-            -- HTML
-            cfg("html")
-
-            -- Lua (nvim config)
-            cfg("lua_ls", {
+            -- Lua
+            vim.lsp.config("lua_ls", {
+                capabilities = capabilities,
+                on_attach = on_attach,
                 settings = {
                     Lua = {
                         diagnostics = {
@@ -157,23 +128,47 @@ return {
                     },
                 },
             })
+            vim.lsp.enable("lua_ls")
 
             -- C / C++
-            cfg("clangd")
+            vim.lsp.config("clangd", {
+                capabilities = capabilities,
+                on_attach = on_attach,
+            })
+            vim.lsp.enable("clangd")
 
             -- CMake
-            cfg("cmake")
+            vim.lsp.config("cmake", {
+                capabilities = capabilities,
+                on_attach = on_attach,
+            })
+            vim.lsp.enable("cmake")
 
             -- Autotools
-            cfg("autotools_ls")
+            vim.lsp.config("autotools_ls", {
+                capabilities = capabilities,
+                on_attach = on_attach,
+            })
+            vim.lsp.enable("autotools_ls")
 
-            -- Python
-            cfg("pyright")
+            -- Python (pyright)
+            vim.lsp.config("pyright", {
+                capabilities = capabilities,
+                on_attach = on_attach,
+            })
+            vim.lsp.enable("pyright")
 
-            cfg("ruff")
+            -- Ruff
+            vim.lsp.config("ruff", {
+                capabilities = capabilities,
+                on_attach = on_attach,
+            })
+            vim.lsp.enable("ruff")
 
             -- Rust
-            cfg("rust_analyzer", {
+            vim.lsp.config("rust_analyzer", {
+                capabilities = capabilities,
+                on_attach = on_attach,
                 settings = {
                     ["rust-analyzer"] = {
                         cargo = {
@@ -198,9 +193,12 @@ return {
                     },
                 },
             })
+            vim.lsp.enable("rust_analyzer")
 
             -- Ansible
-            cfg("ansiblels", {
+            vim.lsp.config("ansiblels", {
+                capabilities = capabilities,
+                on_attach = on_attach,
                 settings = {
                     ansible = {
                         ansible = {
@@ -218,6 +216,7 @@ return {
                     },
                 },
             })
+            vim.lsp.enable("ansiblels")
         end,
     },
 }
