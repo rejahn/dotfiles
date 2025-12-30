@@ -18,4 +18,11 @@ vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>')
 -- line numbers setting
 vim.wo.relativenumber = true
 vim.wo.number = true
-vim.g.colorscheme = "catppuccin-mocha"
+vim.g.colorscheme = "poimandres"
+
+-- map for quick quit, save files using leader key
+vim.keymap.set('n', '<Leader>w', ':write<CR>')
+vim.keymap.set('n', '<Leader>a', ':wqa<CR>')
+vim.keymap.set('n', '<Leader>x', ':wq<CR>')
+
+vim.diagnostic.config({ virtual_text = false, virtual_lines = { current_line = true }, })
