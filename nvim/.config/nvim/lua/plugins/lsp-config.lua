@@ -62,26 +62,20 @@ return {
 
             -- on_attach: per-buffer keymaps & behaviour
             local on_attach = function(client, bufnr)
-                local map = function(mode, lhs, rhs, desc)
-                    vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
-                end
-
-                -- LSP navigation / actions
-                map("n", "K", vim.lsp.buf.hover, "Hover")
-                map("n", "gd", vim.lsp.buf.definition, "Goto definition")
-                map("n", "gD", vim.lsp.buf.declaration, "Goto declaration")
-                map("n", "gi", vim.lsp.buf.implementation, "Goto implementation")
-                map("n", "<leader>h", vim.lsp.buf.references, "References")
-                map("n", "<leader>r", vim.lsp.buf.rename, "Rename symbol")
-                map("n", "<leader>a", vim.lsp.buf.code_action, "Code action")
-
-                map("n", "[d", vim.diagnostic.goto_prev, "Prev diagnostic")
-                map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
-
-                map({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help, "Signature help")
+                vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover", silent = true })
+                vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Goto definition", silent = true })
+                vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Goto declaration", silent = true })
+                vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Goto implementation", silent = true })
+                vim.keymap.set("n", "ga", "<C-^>", { desc = "Alternate file", silent = true })
+                vim.keymap.set("n", "gh", vim.lsp.buf.references, { desc = "Symbol References", silent = true })
+                vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { desc = "Rename symbol", silent = true })
+                vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = "Code action", silent = true })
+                vim.keymap.set({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help,
+                    { desc = "Signature help", silent = true })
 
                 if vim.lsp.inlay_hint and vim.lsp.inlay_hint.enable then
-                    pcall(vim.lsp.inlay_hint.enable, false, { bufnr = bufnr })
+                    pcall(vim.lsp.inlay_hint.enable, false,
+                        { bufnr = bufnr })
                 end
 
                 vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
