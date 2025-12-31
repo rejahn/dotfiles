@@ -1,7 +1,7 @@
 return {
     {
         "nvim-telescope/telescope.nvim",
-        tag = "0.1.5",
+        tag = "v0.2.0",
 
         dependencies = {
             "nvim-lua/plenary.nvim",
@@ -19,16 +19,51 @@ return {
             telescope.setup({
                 defaults = {
                     sorting_strategy = "ascending",
-                    layout_config = {
-                        prompt_position = "top",
-                    },
+                    disable_devicons = true,
+
+                    -- layout_config = {
+                    --     prompt_position = "top",
+                    -- },
+
+                    path_display = { "truncate" },
+
                     file_ignore_patterns = {
                         "%.git/",
+                        "node_modules/",
                         "%.cache/",
                         "build/",
+                        "dist/",
                         "target/",
                         "%.o",
                         "%.a",
+                    },
+
+                    -- fast ripgrep config
+                    vimgrep_arguments = {
+                        "rg",
+                        "--color=never",
+                        "--no-heading",
+                        "--with-filename",
+                        "--line-number",
+                        "--column",
+                        "--smart-case",
+                        "--hidden",
+                        "--glob",
+                        "!.git/",
+                    },
+                },
+
+                pickers = {
+                    find_files = {
+                        hidden = true,
+                        find_command = {
+                            "fd",
+                            "--type",
+                            "f",
+                            "--hidden",
+                            "--exclude",
+                            ".git",
+                        },
                     },
                 },
 
@@ -56,7 +91,7 @@ return {
             vim.keymap.set("n", "<leader>/", builtin.live_grep, { desc = "Live grep" })
             vim.keymap.set("n", "<leader>?", builtin.commands, { desc = "Commands" })
             vim.keymap.set("n", "<leader><leader>", builtin.oldfiles, { desc = "Recent files" })
-            vim.keymap.set("n", "<leader>h", builtin.help_tags, { desc = "Help tags" })
+            vim.keymap.set("n", "<leader>H", builtin.help_tags, { desc = "Help tags" })
 
             vim.keymap.set("n", "<leader>d", function()
                 builtin.diagnostics({ bufnr = 0 })
@@ -64,27 +99,13 @@ return {
 
             vim.keymap.set("n", "<leader>D", builtin.diagnostics, { desc = "Workspace diagnostics" })
 
-            -- Document symbols (current file)
-            vim.keymap.set(
-                "n",
-                "<leader>s",
-                builtin.lsp_document_symbols,
-                { desc = "Document symbols" }
-            )
-
-            -- Workspace symbols
-            vim.keymap.set(
-                "n",
-                "<leader>S",
-                builtin.lsp_workspace_symbols,
-                { desc = "Workspace symbols" }
-            )
+            vim.keymap.set("n", "<leader>s", builtin.lsp_document_symbols, { desc = "Document symbols" })
+            vim.keymap.set("n", "<leader>S", builtin.lsp_workspace_symbols, { desc = "Workspace symbols" })
 
             vim.keymap.set("n", "<leader>a", function()
                 builtin.find_files({
                     hidden = true,
                     no_ignore = true,
-                    no_ignore_parent = true,
                     follow = true,
                 })
             end, { desc = "Find ALL files (no ignore)" })
