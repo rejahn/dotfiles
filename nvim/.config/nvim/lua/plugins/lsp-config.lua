@@ -1,6 +1,7 @@
 return {
     {
         "williamboman/mason.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
         lazy = false,
         config = function()
             require("mason").setup()
@@ -13,80 +14,62 @@ return {
         opts = {
             automatic_installation = true,
             ensure_installed = {
-                -- core
                 "lua_ls",
                 "pyright",
                 "rust_analyzer",
                 "clangd",
                 "cmake",
                 "autotools_ls",
-
-                -- extra
                 "ansiblels",
                 "ruff",
             },
         },
     },
 
-    -- completion
-    { "hrsh7th/nvim-cmp" },
-    { "hrsh7th/cmp-nvim-lsp" },
-
     {
         "neovim/nvim-lspconfig",
         lazy = false,
-        config = function()
-            -- capabilities (for nvim-cmp)
-            local capabilities = vim.lsp.protocol.make_client_capabilities()
-            local ok_cmp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
-            if ok_cmp then
-                capabilities = cmp_lsp.default_capabilities(capabilities)
-            end
 
+        dependencies = {
+            "saghen/blink.cmp",
+        },
+
+        config = function()
             -- diagnostics
             vim.diagnostic.config({
                 virtual_text = false,
-                signs = true,
                 underline = false,
                 update_in_insert = false,
                 severity_sort = true,
                 virtual_lines = { current_line = true },
+                signs = {
+                    text = {
+                        [vim.diagnostic.severity.ERROR] = "●",
+                        [vim.diagnostic.severity.WARN]  = "●",
+                        [vim.diagnostic.severity.HINT]  = "●",
+                        [vim.diagnostic.severity.INFO]  = "●",
+                    },
+                },
             })
 
-            local signs = { Error = "●", Warn = "●", Hint = "●", Info = "●" }
-            for type, icon in pairs(signs) do
-                local hl = "DiagnosticSign" .. type
-                vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+            -- on_attach: only LSP keymaps
+            local on_attach = function(_, bufnr)
+                vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Goto Definition" })
+                vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "Goto Declaration" })
+                vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr, nowait = true, desc = "References" })
+                vim.keymap.set("n", "gI", vim.lsp.buf.implementation, { buffer = bufnr, desc = "Goto Implementation" })
+                vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "Goto Type Definition" })
+                -- vim.keymap.set("n", "gai", vim.lsp.buf.incoming_calls,  { buffer = bufnr, desc = "Incoming Calls" })
+                -- vim.keymap.set("n", "gao", vim.lsp.buf.outgoing_calls,  { buffer = bufnr, desc = "Outgoing Calls" })
+                vim.keymap.set("n", "ga", "<C-^>", { desc = "Go to alternate buffer" })
             end
 
-
-            -- on_attach: per-buffer keymaps & behaviour
-            local on_attach = function(client, bufnr)
-                vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover", silent = true })
-                vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Goto definition", silent = true })
-                vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Goto declaration", silent = true })
-                vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Goto implementation", silent = true })
-                vim.keymap.set("n", "ga", "<C-^>", { desc = "Alternate file", silent = true })
-                vim.keymap.set("n", "gh", vim.lsp.buf.references, { desc = "Symbol References", silent = true })
-                vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { desc = "Rename symbol", silent = true })
-                vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = "Code action", silent = true })
-                vim.keymap.set({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help,
-                    { desc = "Signature help", silent = true })
-
-                if vim.lsp.inlay_hint and vim.lsp.inlay_hint.enable then
-                    pcall(vim.lsp.inlay_hint.enable, false,
-                        { bufnr = bufnr })
-                end
-
-                vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-            end
-
-            -- format on save, preferring specific servers per language
+            --  Format-on-save
             vim.api.nvim_create_autocmd("BufWritePre", {
                 callback = function(ev)
                     local ft = vim.bo[ev.buf].filetype
-
                     local preferred
+
                     if ft == "rust" then
                         preferred = "rust_analyzer"
                     elseif ft == "c" or ft == "cpp" or ft == "cuda" then
@@ -108,82 +91,45 @@ return {
                 end,
             })
 
-            -- LSP server configurations
-
+            -- LSP SERVERS
             -- Lua
             vim.lsp.config("lua_ls", {
-                capabilities = capabilities,
                 on_attach = on_attach,
                 settings = {
                     Lua = {
-                        diagnostics = {
-                            globals = { "vim" },
-                        },
+                        diagnostics = { globals = { "vim" } },
                     },
                 },
             })
             vim.lsp.enable("lua_ls")
 
             -- C / C++
-            vim.lsp.config("clangd", {
-                capabilities = capabilities,
-                on_attach = on_attach,
-            })
+            vim.lsp.config("clangd", { on_attach = on_attach })
             vim.lsp.enable("clangd")
 
             -- CMake
-            vim.lsp.config("cmake", {
-                capabilities = capabilities,
-                on_attach = on_attach,
-            })
+            vim.lsp.config("cmake", { on_attach = on_attach })
             vim.lsp.enable("cmake")
 
             -- Autotools
-            vim.lsp.config("autotools_ls", {
-                capabilities = capabilities,
-                on_attach = on_attach,
-            })
+            vim.lsp.config("autotools_ls", { on_attach = on_attach })
             vim.lsp.enable("autotools_ls")
 
-            -- Python (pyright)
-            vim.lsp.config("pyright", {
-                capabilities = capabilities,
-                on_attach = on_attach,
-            })
+            -- Python
+            vim.lsp.config("pyright", { on_attach = on_attach })
             vim.lsp.enable("pyright")
 
             -- Ruff
-            vim.lsp.config("ruff", {
-                capabilities = capabilities,
-                on_attach = on_attach,
-            })
+            vim.lsp.config("ruff", { on_attach = on_attach })
             vim.lsp.enable("ruff")
 
             -- Rust
             vim.lsp.config("rust_analyzer", {
-                capabilities = capabilities,
                 on_attach = on_attach,
                 settings = {
                     ["rust-analyzer"] = {
-                        cargo = {
-                            features = "all",
-                        },
-                        checkOnSave = {
-                            enable = true,
-                        },
-                        check = {
-                            command = "clippy",
-                        },
-                        imports = {
-                            group = {
-                                enable = false,
-                            },
-                        },
-                        completion = {
-                            postfix = {
-                                enable = false,
-                            },
-                        },
+                        cargo = { features = "all" },
+                        check = { command = "clippy" },
                     },
                 },
             })
@@ -191,16 +137,9 @@ return {
 
             -- Ansible
             vim.lsp.config("ansiblels", {
-                capabilities = capabilities,
                 on_attach = on_attach,
                 settings = {
                     ansible = {
-                        ansible = {
-                            useFullyQualifiedCollectionNames = true,
-                        },
-                        python = {
-                            interpreterPath = "python",
-                        },
                         validation = {
                             enabled = true,
                             lint = {
