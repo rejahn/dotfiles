@@ -1,0 +1,26 @@
+# C++
+[[language]]
+name = "cpp"
+language-servers = ["clangd"]
+# formatter = { command = "clang-format", args = [] }
+auto-format = true   # format on save
+
+# C
+[[language]]
+name = "c"
+language-servers = ["clangd"]
+formatter = { command = "clang-format", args = [] }
+auto-format = true
+
+# [language-server.clangd]
+# command = "clangd"
+# args = [
+#   "--background-index",
+#   "--clang-tidy",
+# ]
+
+
+[[language]]
+name = "rust"
+auto-format = true
+# language-server = { command = "rust-analyzer" }
