@@ -1,5 +1,6 @@
 {
   // Auto-update settings
+  "vim_mode": true,
   "remove_trailing_whitespace_on_save": true,
   "disable_ai": false,
   "show_whitespaces": "selection",
@@ -54,7 +55,6 @@
   "buffer_font_size": 14.0,
   "buffer_font_family": "JetBrains Mono NL",
   "base_keymap": "SublimeText",
-  "vim_mode": true,
   "terminal": {
     "dock": "bottom",
     "font_family": "JetBrains Mono NL",
