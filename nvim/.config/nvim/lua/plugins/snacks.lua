@@ -1,7 +1,12 @@
 return {
     "folke/snacks.nvim",
     dependencies = {
-        "folke/which-key.nvim",
+        {
+            "folke/which-key.nvim",
+            opts = {
+                preset = "helix",
+            },
+        },
         {
             "folke/todo-comments.nvim",
             dependencies = { "nvim-lua/plenary.nvim" },
@@ -10,7 +15,6 @@ return {
     },
     priority = 1000,
     lazy = false,
-
     ---@type snacks.Config
     opts = {
         bigfile      = { enabled = true },
@@ -19,9 +23,10 @@ return {
         input        = { enabled = true },
         quickfile    = { enabled = true },
         scroll       = { enabled = false },
-        statuscolumn = { enabled = false },
         words        = { enabled = false },
+        rename       = { enabled = true },
         toggle       = { enabled = true },
+        lazygit      = { enabled = true },
 
         picker       = {
             enabled = true,
@@ -68,6 +73,15 @@ return {
                 enabled = false,
             },
         },
+
+        -- statuscolumn
+        statuscolumn = {
+            enabled = true,
+
+            left = { "sign", "mark" },
+
+            right = { "git", "fold" },
+        },
     },
 
     config = function(_, opts)
@@ -91,6 +105,7 @@ return {
         { "<leader>gd",       function() Snacks.picker.git_diff() end,                                               desc = "Git Diff (Hunks)" },
         { "<leader>gB",       function() Snacks.git.blame_line() end,                                                desc = "Git Blame Line" },
         { "<leader>gf",       function() Snacks.picker.git_log_file() end,                                           desc = "Git Log File" },
+        { "<leader>lg",       function() Snacks.lazygit() end,                                                       desc = "Lazygit" },
         -- misc pickers
         { "<leader>:",        function() Snacks.picker.command_history() end,                                        desc = "Command History" },
         { "<leader>'",        function() Snacks.picker.resume() end,                                                 desc = "Resume picker" },
@@ -102,15 +117,15 @@ return {
         { "<leader>d",        function() Snacks.picker.diagnostics_buffer() end,                                     desc = "Document diagnostics" },
         { "<leader>D",        function() Snacks.picker.diagnostics() end,                                            desc = "Workspace diagnostics" },
         { "<leader>s",        function() Snacks.picker.lsp_symbols() end,                                            desc = "Document symbols" },
-        { "<leader>S",        function() Snacks.picker.lsp_workspace_symbols() end,                                  desc = "Workspace symbols" },
+        { "<leader>S",        function() Snacks.picker.lsp_workspace_symbols() end,                                  desc = "LSP Workspace Symbols" },
         -- LSP
-        -- { "gd",               function() Snacks.picker.lsp_definitions() end,                                        desc = "Goto Definition" },
-        -- { "gD",               function() Snacks.picker.lsp_declarations() end,                                       desc = "Goto Declaration" },
-        -- { "gr",               function() Snacks.picker.lsp_references() end,                                         nowait = true,                 desc = "References" },
-        -- { "gI",               function() Snacks.picker.lsp_implementations() end,                                    desc = "Goto Implementation" },
-        -- { "gy",               function() Snacks.picker.lsp_type_definitions() end,                                   desc = "Goto Type Definition" },
-        -- { "gai",              function() Snacks.picker.lsp_incoming_calls() end,                                     desc = "Incoming Calls" },
-        -- { "gao",              function() Snacks.picker.lsp_outgoing_calls() end,                                     desc = "Outgoing Calls" },
+        { "gd",               function() Snacks.picker.lsp_definitions() end,                                        desc = "Goto Definition" },
+        { "gD",               function() Snacks.picker.lsp_declarations() end,                                       desc = "Goto Declaration" },
+        { "gr",               function() Snacks.picker.lsp_references() end,                                         nowait = true,                 desc = "References" },
+        { "gI",               function() Snacks.picker.lsp_implementations() end,                                    desc = "Goto Implementation" },
+        { "gy",               function() Snacks.picker.lsp_type_definitions() end,                                   desc = "Goto Type Definition" },
+        { "gai",              function() Snacks.picker.lsp_incoming_calls() end,                                     desc = "Incoming Calls" },
+        { "gao",              function() Snacks.picker.lsp_outgoing_calls() end,                                     desc = "Outgoing Calls" },
         -- explorer toggle
         { "<leader>e",        function() Snacks.explorer() end,                                                      desc = "Explorer" },
         -- todo-comments integration

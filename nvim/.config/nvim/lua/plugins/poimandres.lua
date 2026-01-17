@@ -7,6 +7,6 @@ return {
     end,
 
     init = function()
-        vim.cmd("colorscheme poimandres")
+        -- vim.cmd("colorscheme poimandres")
     end
 }

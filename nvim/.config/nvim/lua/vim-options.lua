@@ -1,9 +1,15 @@
+vim.g.mapleader = " "
+vim.g.background = "dark"
+vim.g.colorscheme = "kanagawa"
+
+-- line numbers setting
+vim.wo.relativenumber = true
+vim.wo.number = true
+
 vim.cmd("set expandtab")
 vim.cmd("set tabstop=4")
 vim.cmd("set softtabstop=4")
 vim.cmd("set shiftwidth=4")
-vim.g.mapleader = " "
-vim.g.background = "dark"
 
 vim.o.clipboard = "unnamedplus"
 vim.opt.swapfile = false
@@ -16,19 +22,15 @@ vim.keymap.set('n', '<c-l>', ':wincmd l<CR>')
 
 vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>')
 
--- line numbers setting
-vim.wo.relativenumber = true
-vim.wo.number = true
-vim.g.colorscheme = "poimandres"
+-- comments
+vim.keymap.set({ "n", "v" }, "<leader>c", "gcc", { remap = true, desc = "Toggle comment" })
 
 -- map for quick quit, save files using leader key
 vim.keymap.set('n', '<Leader>w', ':write<CR>')
 vim.keymap.set('n', '<Leader>x', ':wq<CR>')
 
+-- setup diagnostics as virtual lines
 vim.diagnostic.config({ virtual_text = false, virtual_lines = { current_line = true }, })
 
--- code actions not available for snacks
+-- code actions
 vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = "Code action", silent = true })
-
--- statuscolumn
---vim.opt.statuscolumn = [[%!v:lua.require'snacks.statuscolumn'.get()]]
