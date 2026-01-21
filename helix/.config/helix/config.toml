@@ -1,4 +1,4 @@
-theme = "nvim-dark"
+theme = "kanagawa"
 
 [keys.normal]
 C-o = ":config-open"
