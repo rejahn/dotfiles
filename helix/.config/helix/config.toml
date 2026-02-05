@@ -16,6 +16,7 @@ C-g = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"]
 
 [keys.normal.space]
 i = ":toggle lsp.display-inlay-hints"
+w = ":write"
 
 [editor]
 line-number = "relative"
