@@ -27,7 +27,7 @@ return {
         rename       = { enabled = true },
         toggle       = { enabled = true },
         lazygit      = { enabled = true },
-
+        zen          = { enabled = true },
         picker       = {
             enabled = true,
             sources = {
