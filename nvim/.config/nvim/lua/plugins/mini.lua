@@ -20,7 +20,7 @@ return {
                     { "%u[%l%d]+%f[^%l%d]", "%f[%S][%l%d]+%f[^%l%d]", "%f[%P][%l%d]+%f[^%l%d]", "^[%l%d]+%f[^%l%d]" },
                     "^().*()$",
                 },
-                -- g = ai.buffer,                                  -- buffer
+                g = ai.buffer,                                             -- buffer
                 u = ai.gen_spec.function_call(),                           -- u for "Usage"
                 U = ai.gen_spec.function_call({ name_pattern = "[%w_]" }), -- without dot in function name
             },

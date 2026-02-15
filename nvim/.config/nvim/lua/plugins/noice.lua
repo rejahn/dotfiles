@@ -2,8 +2,7 @@ return {
     "folke/noice.nvim",
     dependencies = {
         "MunifTanjim/nui.nvim",
-        -- optional but commonly needed:
-        -- "rcarriga/nvim-notify",
+        "rcarriga/nvim-notify",
     },
     opts = {
         lsp = {
