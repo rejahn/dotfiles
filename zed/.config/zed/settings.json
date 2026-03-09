@@ -10,7 +10,7 @@
   "theme": {
     "mode": "system",
     "light": "One Dark",
-    "dark": "Everforest Dark Hard"
+    "dark": "Kanagawa Wave"
   },
   "icon_theme": "Material Icon Theme",
   "telemetry": {
@@ -77,7 +77,7 @@
     "rust-analyzer": {
       "initialization_options": {
         "check": {
-          "command": "clippy" // Use Clippy for linting
+          "command": "clippy"
         },
         "inlay_hints": {
           "enabled": true,
@@ -104,21 +104,6 @@
         }
       }
     },
-    // Python settings
-    "pyright": {
-      "settings": {
-        "python": {
-          "analysis": {
-            "autoSearchPaths": true,
-            "useLibraryCodeForTypes": true,
-            "diagnosticMode": "workspace", // Analyze the entire workspace
-            "typeCheckingMode": "basic" // Basic type checking mode
-          },
-          "pythonPath": "/usr/bin/python3" // Path to the Python interpreter
-        }
-      }
-    },
-    // C/C++ settings
     "clangd": {
       "initialization_options": {
         "clangdFileStatus": true, // Show file status in the editor

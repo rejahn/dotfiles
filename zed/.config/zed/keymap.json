@@ -9,13 +9,12 @@
   {
     "context": "Editor && vim_mode == normal && vim_operator == none && !VimWaiting",
     "bindings": {
-      "shift shift": "file_finder::Toggle",
+      "space f": "file_finder::Toggle",
       "space e": "workspace::ToggleLeftDock",
       "space t": "workspace::ToggleBottomDock",
       "space r n": "search::ToggleReplace",
       "space n": "workspace::ToggleLeftDock",
-      "space f": "buffer_search::Deploy",
-      "space g c": "vim::ToggleComments"
+      "space c": "vim::ToggleComments"
     }
   },
   {
