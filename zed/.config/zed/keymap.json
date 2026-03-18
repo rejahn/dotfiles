@@ -10,11 +10,16 @@
     "context": "Editor && vim_mode == normal && vim_operator == none && !VimWaiting",
     "bindings": {
       "space f": "file_finder::Toggle",
+      "space d": "editor::GoToDiagnostic",
+      "space s": "outline::Toggle",
+      "space S": "project_symbols::Toggle",
       "space e": "workspace::ToggleLeftDock",
       "space t": "workspace::ToggleBottomDock",
-      "space r n": "search::ToggleReplace",
-      "space n": "workspace::ToggleLeftDock",
-      "space c": "vim::ToggleComments"
+      "space /": "pane::DeploySearch",
+      "space r": "search::ToggleReplace",
+      "space c": "editor::ToggleComments",
+      "space a": "editor::ToggleCodeActions",
+      "g a": "pane::ActivatePreviousItem",
     }
   },
   {
@@ -22,6 +27,18 @@
     "bindings": {
       // "g e": "editor::GoToDiagnostic"
       // "j k": ["workspace::SendKeystrokes", "escape"]
+    }
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "ctrl-tab": "pane::ActivateNextItem",
+      "ctrl-shift-tab": "pane::ActivatePreviousItem",
+      "space f": "file_finder::Toggle",
+      "space s": "outline::Toggle",
+      "space S": "project_symbols::Toggle",
+      "space e": "workspace::ToggleLeftDock",
+      "space t": "workspace::ToggleBottomDock",
     }
   },
   {

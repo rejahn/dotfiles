@@ -18,6 +18,7 @@ return {
                 "rust_analyzer",
                 "clangd",
                 "autotools_ls",
+                "ruff",
             },
         },
     },

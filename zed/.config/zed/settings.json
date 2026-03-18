@@ -1,5 +1,8 @@
 {
   // Auto-update settings
+  "git_panel": {
+    "dock": "right"
+  },
   "vim_mode": true,
   "remove_trailing_whitespace_on_save": true,
   "disable_ai": false,
@@ -10,7 +13,7 @@
   "theme": {
     "mode": "system",
     "light": "One Dark",
-    "dark": "Kanagawa Wave"
+    "dark": "Ayu Mirage"
   },
   "icon_theme": "Material Icon Theme",
   "telemetry": {
@@ -25,7 +28,7 @@
     }
   },
   "minimap": {
-    "show": "auto",
+    "show": "never",
   },
   "toolbar": {
     "breadcrumbs": false,
@@ -45,7 +48,7 @@
   },
   "project_panel": {
     "entry_spacing": "standard",
-    "dock": "left"
+    "dock": "right"
   },
   "tabs": {
     "file_icons": true,
@@ -54,7 +57,6 @@
   "ui_font_size": 16,
   "buffer_font_size": 14.0,
   "buffer_font_family": "JetBrains Mono NL",
-  "base_keymap": "SublimeText",
   "terminal": {
     "dock": "bottom",
     "font_family": "JetBrains Mono NL",

@@ -23,7 +23,7 @@ vim.keymap.set('n', '<c-l>', ':wincmd l<CR>')
 vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>')
 
 -- comments
-vim.keymap.set({ "n", "v" }, "<leader>c", "gcc", { remap = true, desc = "Toggle comment" })
+vim.keymap.set({ "n", "v" }, "<leader>cc", "gcc", { remap = true, desc = "Toggle comment" })
 
 -- map for quick quit, save files using leader key
 vim.keymap.set('n', '<Leader>w', ':write<CR>')

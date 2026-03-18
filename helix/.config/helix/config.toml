@@ -2,7 +2,8 @@ theme = "kanagawa"
 
 [keys.normal]
 C-o = ":config-open"
-C-r = ":config-reload"
+C-r = ":reload-all"
+C-R = ":config-reload"
 
 C-e = [
   ':sh rm -f /tmp/unique-file',
@@ -17,6 +18,7 @@ C-g = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"]
 [keys.normal.space]
 i = ":toggle lsp.display-inlay-hints"
 w = ":write"
+W = ":write-all"
 
 [editor]
 line-number = "relative"
