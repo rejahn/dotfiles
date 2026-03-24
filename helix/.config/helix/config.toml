@@ -1,10 +1,11 @@
-theme = "kanagawa"
+theme = "tokyonight"
 
 [keys.normal]
 C-o = ":config-open"
 C-r = ":reload-all"
 C-R = ":config-reload"
 
+"*" = ["move_char_right", "move_prev_word_start", "move_next_word_start", "search_selection"]
 C-e = [
   ':sh rm -f /tmp/unique-file',
   ':insert-output yazi %{buffer_name} --chooser-file=/tmp/unique-file',

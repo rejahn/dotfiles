@@ -19,9 +19,21 @@ return {
                 "clangd",
                 "autotools_ls",
                 "ruff",
+                "taplo",
+                "jsonls",
             },
         },
     },
+    -- {
+    --     "WhoIsSethDaniel/mason-tool-installer.nvim",
+    --     lazy = false,
+    --     dependencies = { "williamboman/mason.nvim" },
+    --     opts = {
+    --         ensure_installed = {
+    --             "tree-sitter-cli",
+    --         },
+    --     },
+    -- },
 
     {
         "neovim/nvim-lspconfig",
@@ -100,12 +112,19 @@ return {
             vim.lsp.enable("lua_ls")
 
             -- C / C++
-            vim.lsp.config("clangd", { on_attach = on_attach })
-            vim.lsp.enable("clangd")
+            require("lsp.cpp").setup_lsp(on_attach)
 
             -- Autotools
             vim.lsp.config("autotools_ls", { on_attach = on_attach })
             vim.lsp.enable("autotools_ls")
+
+            -- TOML
+            vim.lsp.config("taplo", { on_attach = on_attach })
+            vim.lsp.enable("taplo")
+
+            -- JSON
+            vim.lsp.config("jsonls", { on_attach = on_attach })
+            vim.lsp.enable("jsonls")
 
             -- Python
             vim.lsp.config("ty", {
@@ -130,16 +149,7 @@ return {
 
 
             -- Rust
-            vim.lsp.config("rust_analyzer", {
-                on_attach = on_attach,
-                settings = {
-                    ["rust-analyzer"] = {
-                        cargo = { features = "all" },
-                        check = { command = "clippy" },
-                    },
-                },
-            })
-            vim.lsp.enable("rust_analyzer")
+            require("lsp.rust").setup_lsp(on_attach)
         end,
     },
 }

@@ -9,6 +9,12 @@
   {
     "context": "Editor && vim_mode == normal && vim_operator == none && !VimWaiting",
     "bindings": {
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "space w": "workspace::Save",
+      "space h": "buffer_search::Dismiss",
       "space f": "file_finder::Toggle",
       "space d": "editor::GoToDiagnostic",
       "space s": "outline::Toggle",
@@ -23,6 +29,10 @@
     }
   },
   {
+    "context": "Editor && vim_mode == visual && vim_operator == none && !VimWaiting",
+    "bindings": {}
+  },
+  {
     "context": "Editor",
     "bindings": {
       // "g e": "editor::GoToDiagnostic"
@@ -33,18 +43,23 @@
     "context": "Pane",
     "bindings": {
       "ctrl-tab": "pane::ActivateNextItem",
-      "ctrl-shift-tab": "pane::ActivatePreviousItem",
+      "ctrl-shift-tab": "pane::ActivatePreviousItem"
+    }
+  },
+  {
+    "context": "Pane && vim_mode == normal && vim_operator == none && !VimWaiting",
+    "bindings": {
       "space f": "file_finder::Toggle",
       "space s": "outline::Toggle",
       "space S": "project_symbols::Toggle",
       "space e": "workspace::ToggleLeftDock",
-      "space t": "workspace::ToggleBottomDock",
+      "space t": "workspace::ToggleBottomDock"
     }
   },
   {
     "context": "ProjectPanel",
     "bindings": {
-      "escape": "workspace::ToggleLeftDock"
+      "space e": "workspace::ToggleLeftDock"
     }
   },
   {

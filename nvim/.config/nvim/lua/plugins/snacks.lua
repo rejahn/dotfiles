@@ -79,7 +79,6 @@ return {
             enabled = true,
 
             left = { "sign", "mark" },
-
             right = { "git", "fold" },
         },
     },

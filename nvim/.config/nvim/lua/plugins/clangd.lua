@@ -7,15 +7,6 @@ return {
     },
   },
   config = function(_, opts)
-    require("clangd_extensions").setup(opts)
-    vim.lsp.inlay_hint.enable(true)
-
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = { "c", "cpp", "objc", "objcpp" },
-      callback = function(ev)
-        vim.keymap.set("n", "<leader>ch", "<cmd>ClangdSwitchSourceHeader<cr>",
-          { buffer = ev.buf, desc = "C/C++: Switch Source/Header" })
-      end,
-    })
+    require("lsp.cpp").setup_clangd_extensions(opts)
   end,
 }
