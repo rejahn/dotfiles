@@ -21,6 +21,7 @@ return {
                 "ruff",
                 "taplo",
                 "jsonls",
+                "nil_ls"
             },
         },
     },
