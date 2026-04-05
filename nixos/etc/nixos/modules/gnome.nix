@@ -1,0 +1,76 @@
+{ pkgs, ... }:
+
+{
+  # Enable the X11 windowing system.
+  services.xserver.enable = true;
+
+  # Enable the GNOME Desktop Environment.
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
+
+  # Configure keymap in X11
+  services.xserver.xkb = {
+    layout = "de";
+    variant = "";
+  };
+
+  # Configure console keymap
+  console.keyMap = "de";
+
+  # Enable dconf so GNOME settings can be managed
+  programs.dconf.enable = true;
+
+  # GNOME defaults
+  programs.dconf.profiles.user.databases = [
+    {
+      settings = {
+        "org/gnome/shell" = {
+          enabled-extensions = [
+            "appindicatorsupport@rgcjonas.gmail.com"
+          ];
+          favorite-apps = [
+            "firefox.desktop"
+            "com.mitchellh.ghostty.desktop"
+            "dev.zed.Zed.desktop"
+            "thunderbird.desktop"
+            "org.gnome.Nautilus.desktop"
+            "element-web.desktop"
+          ];
+        };
+
+        "org/gnome/shell/keybindings" = {
+          show-screenshot-ui = [ "<Super><Shift>s" ];
+        };
+
+        "org/gnome/desktop/interface" = {
+          color-scheme = "prefer-dark";
+          show-battery-percentage = true;
+        };
+
+        "org/gnome/desktop/applications/terminal" = {
+          exec = "ghostty";
+          exec-arg = "";
+        };
+
+        "org/gnome/desktop/wm/preferences" = {
+          button-layout = ":minimize,maximize,close";
+        };
+
+      };
+    }
+  ];
+
+  # GNOME Shell extensions (system-wide)
+  environment.systemPackages = with pkgs; [
+    gnomeExtensions.appindicator
+  ];
+
+  # Set Firefox as the default browser
+  xdg.mime.defaultApplications = {
+    "text/html" = "firefox.desktop";
+    "x-scheme-handler/http" = "firefox.desktop";
+    "x-scheme-handler/https" = "firefox.desktop";
+    "x-scheme-handler/about" = "firefox.desktop";
+    "x-scheme-handler/unknown" = "firefox.desktop";
+  };
+}
