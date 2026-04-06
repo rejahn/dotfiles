@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   # Enable the X11 windowing system.
@@ -34,7 +34,7 @@
             "dev.zed.Zed.desktop"
             "thunderbird.desktop"
             "org.gnome.Nautilus.desktop"
-            "element-web.desktop"
+            "element-desktop.desktop"
           ];
         };
 
@@ -45,6 +45,8 @@
         "org/gnome/desktop/interface" = {
           color-scheme = "prefer-dark";
           show-battery-percentage = true;
+          clock-format = "24h";
+          clock-show-weekday = true;
         };
 
         "org/gnome/desktop/applications/terminal" = {
@@ -54,6 +56,15 @@
 
         "org/gnome/desktop/wm/preferences" = {
           button-layout = ":minimize,maximize,close";
+        };
+
+        "org/gnome/desktop/session" = {
+          idle-delay = lib.gvariant.mkUint32 900;
+        };
+
+        "org/gnome/desktop/screensaver" = {
+          lock-enabled = true;
+          lock-delay = lib.gvariant.mkUint32 0;
         };
 
       };

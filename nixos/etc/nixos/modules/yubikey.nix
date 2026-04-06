@@ -12,7 +12,7 @@
     };
   };
 
-  # Allow sudo to authenticate with a registered U2F/FIDO credential.
+  # Allow sudo to authenticate credential.
   security.pam.services.sudo.u2fAuth = true;
 
   environment.systemPackages = with pkgs; [

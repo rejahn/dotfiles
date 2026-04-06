@@ -5,14 +5,23 @@
 {
   config,
   pkgs,
-  unstablePkgs,
   ...
 }:
 
+let
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-25.11.tar.gz";
+  unstable = import <nixos-unstable> {
+    system = pkgs.stdenv.hostPlatform.system;
+    config.allowUnfree = true;
+  };
+in
+
 {
   imports = [
+    (import "${home-manager}/nixos")
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./home/renan.nix
     ./modules/gnome.nix
     ./modules/plymouth.nix
     ./modules/fonts.nix
@@ -57,6 +66,9 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.networkmanager.plugins = with pkgs; [
+    networkmanager-openconnect
+  ];
 
   # Set your time zone.
   time.timeZone = "Europe/Oslo";
@@ -98,6 +110,20 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  # https://wiki.nixos.org/wiki/Podman
+  virtualisation = {
+    containers.enable = true;
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
+  };
+
+  # List services that you want to enable:
+  services.gnome.gnome-keyring.enable = true;
+  security.polkit.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.renan = {
     isNormalUser = true;
@@ -105,48 +131,27 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "input"
+      "docker"
     ];
     shell = pkgs.fish;
+
     packages = with pkgs; [
-      thunderbird
-      firefox
-      stdenv
-      clang-tools
-      llvm
-      yazi
-      anki
-      nil
-      nixd
-      usbutils
-      gnupg
-      helix
-      fastfetch
-      unstablePkgs.neovim
-      unstablePkgs.codex
-      zed-editor
-      lua
-      just
-      ripgrep
-      eza
-      nix-tree
       bat
+      stdenv
+      eza
+      fd
+      gnupg
+      jq
+
+      usbutils
+      ripgrep
       stow
-      gcc
-      rustup
-      tree-sitter
-      ghostty
-      unstablePkgs.lazygit
-      television
-      zoxide
-      xournalpp
-      obsidian
-      vlc
-      spotify
-      element-desktop
-      wl-clipboard
       nodejs
-      libreoffice
       pinentry-curses
+      zoxide
+      openconnect
+      ffmpeg
     ];
   };
 
@@ -162,10 +167,6 @@
   services.fwupd.enable = true;
   zramSwap.enable = true;
 
-  # security = {
-  #   protectKernelImage = true;
-  #   sudo.execWheelOnly = true;
-  # };
   services.upower.enable = true;
 
   nix.settings.experimental-features = [
@@ -176,20 +177,17 @@
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
 
+  home-manager.extraSpecialArgs = { inherit unstable; };
+
   programs.steam.enable = true;
   programs.gnupg.agent = {
     enable = true;
+    enableSSHSupport = true;
+    pinentryPackage = pkgs.pinentry-gnome3;
   };
   # Install firefox.
   programs.firefox.enable = true;
   programs.fish.enable = true;
-
-  programs.nix-ld.enable = true;
-  # programs.nix-ld.libraries = with pkgs; [
-  #   stdenv
-  #   zlib
-  #   openssl
-  # ];
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
