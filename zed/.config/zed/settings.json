@@ -12,6 +12,12 @@
           ]
         }
       ]
+    },
+    {
+      "host": "idun-login2.hpc.ntnu.no",
+      "username": "renanaj",
+      "args": [],
+      "projects": []
     }
   ],
   "git_panel": {

@@ -1,4 +1,4 @@
-theme = "tokyonight"
+theme = "tokyonight_moon"
 
 [keys.normal]
 C-o = ":config-open"
@@ -40,6 +40,9 @@ select = "underline"
 [editor.file-picker]
 hidden = true
 ignore = true
+
+[editor.lsp]
+display-inlay-hints = true
 
 [editor.indent-guides]
 render = true

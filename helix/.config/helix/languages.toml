@@ -2,13 +2,12 @@
 [[language]]
 name = "cpp"
 language-servers = ["clangd"]
-auto-format = true   # format on save
+auto-format = true
 
 # C
 [[language]]
 name = "c"
 language-servers = ["clangd"]
-formatter = { command = "clang-format", args = [] }
 auto-format = true
 
 [[language]]
@@ -25,4 +24,8 @@ auto-format = true
 
 [[language]]
 name = "json"
+auto-format = true
+
+[[language]]
+name = "nix"
 auto-format = true
