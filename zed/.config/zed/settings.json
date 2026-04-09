@@ -1,25 +1,5 @@
 {
   // Auto-update settings
-  "ssh_connections": [
-    {
-      "host": "idun-login2.hpc.ntnu.no",
-      "username": "renanaj",
-      "args": [],
-      "projects": [
-        {
-          "paths": [
-            "/cluster/home/renanaj"
-          ]
-        }
-      ]
-    },
-    {
-      "host": "idun-login2.hpc.ntnu.no",
-      "username": "renanaj",
-      "args": [],
-      "projects": []
-    }
-  ],
   "git_panel": {
     "dock": "left"
   },
@@ -31,11 +11,15 @@
   "show_edit_predictions": false,
   // Theme settings
   "theme": {
-    "mode": "system",
-    "light": "One Dark",
+    "mode": "dark",
+    "light": "One Light",
     "dark": "Tokyo Night Moon"
   },
-  "icon_theme": "Material Icon Theme",
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Material Icon Theme",
+    "dark": "Material Icon Theme"
+  },
   "telemetry": {
     "metrics": false,
     "diagnostics": false
