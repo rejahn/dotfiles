@@ -1,14 +1,16 @@
 local M = {}
 
 function M.setup_lsp(on_attach)
-    vim.lsp.config("clangd", { on_attach = on_attach })
+    vim.lsp.config("clangd", {
+        on_attach = on_attach,
+        cmd = { vim.fn.exepath("clangd") ~= "" and vim.fn.exepath("clangd") or "clangd" },
+    })
     vim.lsp.enable("clangd")
 end
 
 function M.setup_clangd_extensions(opts)
     require("clangd_extensions").setup(opts)
     vim.lsp.inlay_hint.enable(true)
-
     vim.api.nvim_create_autocmd("FileType", {
         pattern = { "c", "cpp", "objc", "objcpp" },
         callback = function(ev)
