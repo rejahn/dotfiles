@@ -19,6 +19,8 @@ vim.pack.add({
 })
 
 local ai = require("mini.ai")
+local tabline = require("mini.tabline")
+
 ai.setup({
     n_lines = 500,
     custom_textobjects = {
@@ -40,6 +42,11 @@ ai.setup({
     },
 })
 
+tabline.setup({
+    show_icons = false,
+    tabpage_section = "right",
+})
+
 mini_util.pairs({
     modes = { insert = true, command = true, terminal = false },
     skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
@@ -49,3 +56,10 @@ mini_util.pairs({
 })
 
 require("mini.surround").setup(surround_opts)
+
+local map = function(lhs, rhs, desc)
+    vim.keymap.set("n", lhs, rhs, { silent = true, desc = desc })
+end
+
+map("<S-h>", "<Cmd>bprevious<CR>", "Prev Buffer")
+map("<S-l>", "<Cmd>bnext<CR>", "Next Buffer")

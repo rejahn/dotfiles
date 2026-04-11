@@ -9,6 +9,10 @@
       "src": "https://github.com/akinsho/bufferline.nvim",
       "version": "4.0.0 - 5.0.0"
     },
+    "clangd_extensions.nvim": {
+      "rev": "872893cb061044a4cc7ced59c0f2fe2d70db4382",
+      "src": "https://github.com/p00f/clangd_extensions.nvim"
+    },
     "crates.nvim": {
       "rev": "afcd1cc3eeceb5783676fc8464389b9216a29d05",
       "src": "https://github.com/Saecki/crates.nvim",
@@ -37,10 +41,6 @@
     "mini.surround": {
       "rev": "2715e04bea3ec9244f15b421dc5b18c0fe326210",
       "src": "https://github.com/nvim-mini/mini.surround"
-    },
-    "night-owl.nvim": {
-      "rev": "86ed124c2f7e118670649701288e024444bf91e5",
-      "src": "https://github.com/oxfist/night-owl.nvim"
     },
     "none-ls.nvim": {
       "rev": "7f9301e416533b5d74e2fb3b1ce5059eeaed748b",

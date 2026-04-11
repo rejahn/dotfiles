@@ -111,7 +111,7 @@ map("gai", function() Snacks.picker.lsp_incoming_calls() end, "Incoming Calls")
 map("gao", function() Snacks.picker.lsp_outgoing_calls() end, "Outgoing Calls")
 map("<leader>e", function()
     Snacks.explorer({
-        layout = { layout = { position = "right" } },
+        layout = { layout = { position = "left" } },
     })
 end, "Explorer")
 map("<leader>t", function() Snacks.picker.todo_comments() end, "Todo")
