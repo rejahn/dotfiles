@@ -15,11 +15,12 @@ local surround_opts = {
 vim.pack.add({
   "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
   "https://github.com/nvim-mini/mini.nvim",
-  "https://github.com/nvim-mini/mini.surround",
 })
 
 local ai = require("mini.ai")
 local tabline = require("mini.tabline")
+local pairs = require("mini.pairs")
+local surround = require("mini.surround")
 
 ai.setup({
   n_lines = 500,
@@ -47,19 +48,15 @@ tabline.setup({
   tabpage_section = "right",
 })
 
-mini_util.pairs({
+pairs.setup(mini_util.pairs({
   modes = { insert = true, command = true, terminal = false },
   skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
   skip_ts = { "string" },
   skip_unbalanced = true,
   markdown = true,
-})
+}))
 
-require("mini.surround").setup(surround_opts)
+surround.setup(surround_opts)
 
-local map = function(lhs, rhs, desc)
-  vim.keymap.set("n", lhs, rhs, { silent = true, desc = desc })
-end
-
-map("<S-h>", "<Cmd>bprevious<CR>", "Prev Buffer")
-map("<S-l>", "<Cmd>bnext<CR>", "Next Buffer")
+vim.keymap.set("n", "<S-h>", "<Cmd>bprevious<CR>", { silent = true, desc = "Prev Buffer" })
+vim.keymap.set("n", "<S-l>", "<Cmd>bnext<CR>", { silent = true, desc = "Next Buffer" })
