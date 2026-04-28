@@ -23,6 +23,8 @@ in
     ./hardware-configuration.nix
     ./home/renan.nix
     ./modules/gnome.nix
+    ./modules/dms.nix
+    ./modules/niri.nix
     ./modules/plymouth.nix
     ./modules/fonts.nix
     ./modules/fingerprint.nix
