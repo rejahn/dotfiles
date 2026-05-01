@@ -20,6 +20,8 @@ vim.diagnostic.config({
   },
 })
 
+local capabilities = require("blink.cmp").get_lsp_capabilities()
+
 local on_attach = function(_, bufnr)
   vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename symbol" })
   vim.keymap.set("n", "ga", "<C-^>", { desc = "Go to alternate buffer" })
@@ -58,6 +60,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 vim.lsp.config("lua_ls", {
   on_attach = on_attach,
+  capabilities = capabilities,
   settings = {
     Lua = {
       diagnostics = { globals = { "vim" } },
@@ -66,25 +69,26 @@ vim.lsp.config("lua_ls", {
 })
 vim.lsp.enable("lua_ls")
 
-vim.lsp.config("bashls", { on_attach = on_attach })
+vim.lsp.config("bashls", { on_attach = on_attach, capabilities = capabilities })
 vim.lsp.enable("bashls")
 
-require("lsp.cpp").setup_lsp(on_attach)
+require("lsp.cpp").setup_lsp(on_attach, capabilities)
 
-vim.lsp.config("autotools_ls", { on_attach = on_attach })
+vim.lsp.config("autotools_ls", { on_attach = on_attach, capabilities = capabilities })
 vim.lsp.enable("autotools_ls")
 
-vim.lsp.config("taplo", { on_attach = on_attach })
+vim.lsp.config("taplo", { on_attach = on_attach, capabilities = capabilities })
 vim.lsp.enable("taplo")
 
-vim.lsp.config("jsonls", { on_attach = on_attach })
+vim.lsp.config("jsonls", { on_attach = on_attach, capabilities = capabilities })
 vim.lsp.enable("jsonls")
 
-vim.lsp.config("nil_ls", { on_attach = on_attach })
+vim.lsp.config("nil_ls", { on_attach = on_attach, capabilities = capabilities })
 vim.lsp.enable("nil_ls")
 
 vim.lsp.config("ty", {
   on_attach = on_attach,
+  capabilities = capabilities,
   cmd = { "ty", "server" },
   settings = {
     ty = {},
@@ -94,6 +98,7 @@ vim.lsp.enable("ty")
 
 vim.lsp.config("ruff", {
   on_attach = on_attach,
+  capabilities = capabilities,
   cmd = { "ruff", "server" },
   init_options = {
     settings = {
@@ -103,4 +108,4 @@ vim.lsp.config("ruff", {
 })
 vim.lsp.enable("ruff")
 
-require("lsp.rust").setup_lsp(on_attach)
+require("lsp.rust").setup_lsp(on_attach, capabilities)
