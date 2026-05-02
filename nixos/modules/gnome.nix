@@ -4,18 +4,8 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment.
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "de";
-    variant = "";
-  };
-
-  # Configure console keymap
-  console.keyMap = "de";
 
   # Enable dconf so GNOME settings can be managed
   programs.dconf.enable = true;
@@ -44,6 +34,7 @@
 
         "org/gnome/desktop/interface" = {
           color-scheme = "prefer-dark";
+          gtk-theme = "Adwaita-dark";
           show-battery-percentage = true;
           clock-format = "24h";
           clock-show-weekday = true;
@@ -75,13 +66,4 @@
   environment.systemPackages = with pkgs; [
     gnomeExtensions.appindicator
   ];
-
-  # Set Firefox as the default browser
-  xdg.mime.defaultApplications = {
-    "text/html" = "firefox.desktop";
-    "x-scheme-handler/http" = "firefox.desktop";
-    "x-scheme-handler/https" = "firefox.desktop";
-    "x-scheme-handler/about" = "firefox.desktop";
-    "x-scheme-handler/unknown" = "firefox.desktop";
-  };
 }

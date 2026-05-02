@@ -1,0 +1,19 @@
+{ ... }:
+
+{
+  programs.fuzzel = {
+    enable = true;
+
+    settings = {
+      colors = {
+        background = "1e2030ff";
+        text = "c8d3f5ff";
+        match = "65bcffff";
+        selection = "363c58ff";
+        selection-match = "65bcffff";
+        selection-text = "c8d3f5ff";
+        border = "589ed7ff";
+      };
+    };
+  };
+}

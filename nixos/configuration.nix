@@ -2,23 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{
-  config,
-  pkgs,
-  ...
-}:
-
-let
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-25.11.tar.gz";
-  unstable = import <nixos-unstable> {
-    system = pkgs.stdenv.hostPlatform.system;
-    config.allowUnfree = true;
-  };
-in
+{ pkgs, unstable, ... }:
 
 {
+
   imports = [
-    (import "${home-manager}/nixos")
+    # (import "${home-manager}/nixos")
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./home/renan.nix
@@ -33,28 +22,11 @@ in
   ];
 
   # Bootloader
-  boot.loader.systemd-boot.enable = false;
-
+  boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.configurationLimit = 15;
+  boot.loader.systemd-boot.consoleMode = "auto";
   boot.loader.efi.efiSysMountPoint = "/boot";
-
-  boot.loader.grub.enable = true;
-  boot.loader.grub.efiSupport = true;
-  boot.loader.grub.device = "nodev";
-  boot.loader.grub.useOSProber = true;
-
-  boot.loader.grub.extraEntries = ''
-    menuentry "Fedora" {
-      insmod part_gpt
-      insmod fat
-      search --file --set=root /EFI/fedora/shimx64.efi
-      chainloader /EFI/fedora/shimx64.efi
-    }
-  '';
-  boot.loader.grub.enableCryptodisk = true;
-
-  # Optional, keeps the menu cleaner
-  boot.loader.grub.configurationLimit = 10;
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -71,6 +43,16 @@ in
   networking.networkmanager.plugins = with pkgs; [
     networkmanager-openconnect
   ];
+
+  hardware.bluetooth.enable = true;
+
+  programs.nix-ld = {
+    enable = true;
+    libraries = [
+      pkgs.zlib
+      pkgs.openssl
+    ];
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Oslo";
@@ -89,6 +71,15 @@ in
     LC_TELEPHONE = "de_DE.UTF-8";
     LC_TIME = "de_DE.UTF-8";
   };
+
+  # DE layout in GNOME, niri, and the initrd/LUKS prompt.
+  services.xserver.xkb = {
+    layout = "de";
+    variant = "";
+  };
+
+  console.keyMap = "de";
+  console.earlySetup = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -136,6 +127,7 @@ in
       "input"
       "docker"
     ];
+
     shell = pkgs.fish;
 
     packages = with pkgs; [
@@ -145,22 +137,20 @@ in
       fd
       gnupg
       jq
-
+      openssl
       usbutils
       ripgrep
       stow
       nodejs
       pinentry-curses
-      zoxide
-      openconnect
       ffmpeg
     ];
   };
 
   nix.gc = {
     automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 10d";
+    dates = "daily";
+    options = "--delete-older-than 7d";
   };
 
   nix.optimise.automatic = true;
@@ -169,6 +159,7 @@ in
   services.fwupd.enable = true;
   zramSwap.enable = true;
 
+  powerManagement.enable = true;
   services.upower.enable = true;
 
   nix.settings.experimental-features = [
@@ -179,15 +170,16 @@ in
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
 
-  home-manager.extraSpecialArgs = { inherit unstable; };
+  home-manager.backupFileExtension = "hm-backup";
+  home-manager.useGlobalPkgs = true;
 
   programs.steam.enable = true;
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
-    pinentryPackage = pkgs.pinentry-gnome3;
+    pinentryPackage = pkgs.pinentry-curses;
   };
-  # Install firefox.
+
   programs.firefox.enable = true;
   programs.fish.enable = true;
 
@@ -206,7 +198,13 @@ in
     git
     efibootmgr
     unzip
+    adwaita-icon-theme
   ];
+
+  xdg.icons = {
+    enable = true;
+    fallbackCursorThemes = [ "Adwaita" ];
+  };
 
   services.xserver.videoDrivers = [ "modesetting" ];
 
