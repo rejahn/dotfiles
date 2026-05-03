@@ -1,73 +1,75 @@
 local opts = {
-    bigfile = { enabled = true },
-    explorer = { enabled = true },
-    git = { enabled = true },
-    input = { enabled = true },
-    quickfile = { enabled = true },
-    scroll = { enabled = false },
-    words = { enabled = false },
-    rename = { enabled = true },
-    toggle = { enabled = true },
-    lazygit = { enabled = true },
-    zen = { enabled = true },
-    picker = {
-        enabled = true,
-        sources = {
-            files = {
-                hidden = true,
-                ignored = true,
-                follow = false,
-                exclude = {
-                    ".git/",
-                    "node_modules/",
-                    ".cache/",
-                    "build/",
-                    "dist/",
-                    "target/",
-                },
-            },
-            grep = {
-                hidden = true,
-                ignored = false,
-                exclude = {
-                    ".git/",
-                    "node_modules/",
-                    ".cache/",
-                    "build/",
-                    "dist/",
-                    "target/",
-                },
-            },
+  bigfile = { enabled = true },
+  git = { enabled = true },
+  input = { enabled = true },
+  quickfile = { enabled = true },
+  scroll = { enabled = false },
+  words = { enabled = false },
+  rename = { enabled = true },
+  toggle = { enabled = true },
+  lazygit = { enabled = true },
+  zen = { enabled = true },
+  picker = {
+    enabled = true,
+    sources = {
+      files = {
+        hidden = true,
+        ignored = true,
+        follow = false,
+        exclude = {
+          ".git/",
+          "node_modules/",
+          ".cache/",
+          "build/",
+          "dist/",
+          "target/",
         },
+      },
+      explorer = {
+        hidden = true,
+      },
+      grep = {
+        hidden = true,
+        ignored = false,
+        exclude = {
+          ".git/",
+          "node_modules/",
+          ".cache/",
+          "build/",
+          "dist/",
+          "target/",
+        },
+      },
+    },
+  },
+  indent = {
+    enabled = true,
+    animate = {
+      enabled = false,
     },
     indent = {
-        enabled = true,
-        animate = {
-            enabled = false,
-        },
-        indent = {
-            char = "┊",
-        },
-        scope = {
-            enabled = false,
-        },
+      char = "┊",
     },
-    statuscolumn = {
-        enabled = true,
-        left = { "sign", "mark" },
-        right = { "git", "fold" },
+    scope = {
+      enabled = false,
     },
+  },
+  statuscolumn = {
+    enabled = true,
+    left = { "sign", "mark" },
+    right = { "git", "fold" },
+  },
 }
 
 vim.pack.add({
-    "https://github.com/nvim-lua/plenary.nvim",
-    "https://github.com/folke/which-key.nvim",
-    "https://github.com/folke/todo-comments.nvim",
-    "https://github.com/folke/snacks.nvim",
+  "https://github.com/nvim-lua/plenary.nvim",
+  "https://github.com/folke/which-key.nvim",
+  "https://github.com/folke/todo-comments.nvim",
+  "https://github.com/folke/snacks.nvim",
 })
 
 require("which-key").setup({
-    preset = "helix",
+  preset = "helix",
 })
 
 require("todo-comments").setup({})
@@ -76,13 +78,12 @@ local Snacks = require("snacks")
 Snacks.setup(opts)
 
 local map = function(lhs, rhs, desc)
-    vim.keymap.set("n", lhs, rhs, { desc = desc, silent = true })
+  vim.keymap.set("n", lhs, rhs, { desc = desc, silent = true })
 end
 
 map("<leader>f", function() Snacks.picker.files() end, "Find files")
 map("<leader>,", function() Snacks.picker.buffers() end, "Buffers")
 map("<leader>j", function() Snacks.picker.jumps() end, "Jumplist")
-map("<leader>g", function() Snacks.picker.git_status() end, "Git status")
 map("<leader>gb", function() Snacks.picker.git_branches() end, "Git Branches")
 map("<leader>gl", function() Snacks.picker.git_log() end, "Git Log")
 map("<leader>gL", function() Snacks.picker.git_log_file() end, "Git Log Line")
@@ -109,12 +110,7 @@ map("gI", function() Snacks.picker.lsp_implementations() end, "Goto Implementati
 map("gy", function() Snacks.picker.lsp_type_definitions() end, "Goto Type Definition")
 map("gai", function() Snacks.picker.lsp_incoming_calls() end, "Incoming Calls")
 map("gao", function() Snacks.picker.lsp_outgoing_calls() end, "Outgoing Calls")
-map("<leader>e", function()
-    Snacks.explorer({
-        layout = { layout = { position = "left" } },
-    })
-end, "Explorer")
+map("<leader>e", function() Snacks.explorer({ layout = { layout = { position = "right" } }, }) end, "Explorer")
 map("<leader>t", function() Snacks.picker.todo_comments() end, "Todo")
-map("<leader>T", function()
-    Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } })
-end, "Todo/Fix/Fixme")
+
+map("<leader>T", function() Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } }) end, "Todo/Fix/Fixme")

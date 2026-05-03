@@ -2,11 +2,9 @@
 
 {
   home.packages = with pkgs; [
-    ghostty
     wezterm
     brightnessctl
     networkmanagerapplet
-    polkit_gnome
 
     # cli
     btop

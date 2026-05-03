@@ -1,8 +1,6 @@
 {
   // Auto-update settings
-  "git_panel": {
-    "dock": "left"
-  },
+  "cli_default_open_behavior": "existing_window",
   "vim_mode": true,
   "remove_trailing_whitespace_on_save": true,
   "disable_ai": false,
@@ -52,10 +50,6 @@
   "auto_indent_on_paste": true,
   "buffer_font_features": {
     "calt": false
-  },
-  "project_panel": {
-    "entry_spacing": "standard",
-    "dock": "left"
   },
   "tabs": {
     "file_icons": true,
