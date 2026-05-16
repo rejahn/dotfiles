@@ -11,6 +11,7 @@
     wl-clipboard
     tree-sitter
     openssl
+    wireguard-tools
     just
     zoxide
     ffmpeg
@@ -21,6 +22,7 @@
     unstable.opencode
     unstable.zed-editor
     unstable.helix
+    ghostty
     yazi
 
     # GUIs
@@ -39,7 +41,6 @@
     nil
     nixd
     llvm
-    rustup
     git-lfs
     clang-tools
     unstable.ruff
@@ -81,29 +82,33 @@
     };
 
     interactiveShellInit = ''
+
       set -g fish_greeting
+
+      fish_add_path $HOME/.cargo/bin
+      fish_add_path $HOME/.local/bin
+
       tv init fish | source
       zoxide init fish | source
     '';
   };
 
-  systemd.user.services.nm-applet = {
-    Unit = {
-      Description = "NetworkManager applet";
-      PartOf = [ "graphical-session.target" ];
-      After = [ "graphical-session.target" ];
-    };
+  # systemd.user.services.nm-applet = {
+  #   Unit = {
+  #     Description = "NetworkManager applet";
+  #     PartOf = [ "graphical-session.target" ];
+  #     After = [ "graphical-session.target" ];
+  #   };
+  #
+  #   Service = {
+  #     ExecStart = "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator";
+  #     Restart = "on-failure";
+  #     RestartSec = 2;
+  #   };
+  #
+  #   Install.WantedBy = [ "graphical-session.target" ];
+  # };
 
-    Service = {
-      ExecStart = "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator";
-      Restart = "on-failure";
-      RestartSec = 2;
-    };
-
-    Install.WantedBy = [ "graphical-session.target" ];
-  };
-
-  # This gives OpenConnect/AnyConnect in niri the same auth/prompt path GNOME has.
   systemd.user.services.polkit-gnome-authentication-agent = {
     Unit = {
       Description = "Polkit GNOME authentication agent";

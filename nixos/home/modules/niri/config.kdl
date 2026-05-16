@@ -236,7 +236,7 @@ window-rule {
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    Mod+Return hotkey-overlay-title="Open a Terminal: WezTerm" { spawn "wezterm"; }
+    Mod+Return hotkey-overlay-title="Open a Terminal: Ghostty" { spawn "ghostty"; }
     Mod+D hotkey-overlay-title="Run Application Launcher" { spawn "rofi" "-show" "drun"; }
 
     // Noctalia lock reference

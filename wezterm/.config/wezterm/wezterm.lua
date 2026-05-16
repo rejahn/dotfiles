@@ -4,6 +4,9 @@ local config                                      = wezterm.config_builder()
 
 config.color_scheme                               = 'tokyonight_moon'
 
+-- https://github.com/wezterm/wezterm/issues/4962
+config.enable_wayland                             = true
+
 config.hide_tab_bar_if_only_one_tab               = false
 config.use_fancy_tab_bar                          = false
 config.tab_bar_at_bottom                          = true

@@ -25,6 +25,7 @@
     enable = true;
     package = dms.packages.${pkgs.stdenv.hostPlatform.system}.default;
     quickshell.package = unstable.quickshell;
+    systemd.target = "niri.service";
     enableSystemMonitoring = true;
   };
 
