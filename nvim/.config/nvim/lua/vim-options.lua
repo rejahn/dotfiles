@@ -15,19 +15,19 @@ vim.o.clipboard = "unnamedplus"
 vim.opt.swapfile = false
 
 -- Navigate vim panes better
-vim.keymap.set('n', '<c-k>', ':wincmd k<CR>')
-vim.keymap.set('n', '<c-j>', ':wincmd j<CR>')
-vim.keymap.set('n', '<c-h>', ':wincmd h<CR>')
-vim.keymap.set('n', '<c-l>', ':wincmd l<CR>')
+vim.keymap.set("n", "<c-k>", ":wincmd k<CR>")
+vim.keymap.set("n", "<c-j>", ":wincmd j<CR>")
+vim.keymap.set("n", "<c-h>", ":wincmd h<CR>")
+vim.keymap.set("n", "<c-l>", ":wincmd l<CR>")
 
-vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>')
+vim.keymap.set("n", "<leader>h", ":nohlsearch<CR>")
 
 -- map for quick quit, save files using leader key
-vim.keymap.set('n', '<Leader>w', ':write<CR>')
-vim.keymap.set('n', '<Leader>x', ':wq<CR>')
+vim.keymap.set("n", "<Leader>w", ":write<CR>")
+vim.keymap.set("n", "<Leader>x", ":wq<CR>")
 
 -- setup diagnostics as virtual lines
-vim.diagnostic.config({ virtual_text = false, virtual_lines = { current_line = true }, })
+vim.diagnostic.config({ virtual_text = true, virtual_lines = { current_line = true } })
 
 -- code actions
 vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = "Code action", silent = true })
