@@ -1,4 +1,4 @@
-theme = "tokyonight_moon"
+theme = "nvim-dark"
 
 [keys.normal]
 C-o = ":config-open"
@@ -28,12 +28,12 @@ middle-click-paste = true
 auto-completion = true
 auto-format = true
 color-modes = true
-default-yank-register = "+"
+default-yank-register = "*"
 end-of-line-diagnostics = "disable"
 bufferline = "multiple"
 
 [editor.cursor-shape]
-insert = "bar"
+insert = "block"
 normal = "block"
 select = "underline"
 

@@ -1,2 +1,2 @@
-vim.o.termguicolors = true
-require("vim-options")
+require("vim._core.ui2").enable()
+require("options")

@@ -21,7 +21,8 @@
       "space S": "project_symbols::Toggle",
       "space e": "workspace::ToggleLeftDock",
       "space t": "workspace::ToggleBottomDock",
-      "space /": "pane::DeploySearch",
+      // "space /": "pane::DeploySearch",
+      "space /": "text_finder::Toggle",
       "space r": "search::ToggleReplace",
       "space c": "editor::ToggleComments",
       "space a": "editor::ToggleCodeActions",
@@ -53,6 +54,7 @@
       "space s": "outline::Toggle",
       "space S": "project_symbols::Toggle",
       "space e": "workspace::ToggleLeftDock",
+      "space /": "text_finder::Toggle",
       "space t": "workspace::ToggleBottomDock"
     }
   },
@@ -69,7 +71,7 @@
       "cmd-d": "pane::CloseActiveItem",
       "cmd-t": "workspace::ToggleBottomDock",
       "cmd-shift-f": "workspace::ToggleZoom",
-      "escape": "workspace::ToggleBottomDock"
+      "escape": "workspace::ToggleBottomDock"      
     }
   },
   {

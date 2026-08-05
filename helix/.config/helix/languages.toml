@@ -11,12 +11,27 @@ language-servers = ["clangd"]
 auto-format = true
 
 [[language]]
+language-servers = ["rust-analyzer"]
 name = "rust"
 auto-format = true
 
 [[language]]
 name = "python"
 auto-format = true
+
+[[language]]
+name = "python"
+language-id = "python"
+auto-format = true
+language-servers = ["ty", "ruff"]
+file-types = ["py", "ipynb"]
+comment-token = "#"
+shebangs = ["python"]
+roots = ["pyproject.toml", "setup.py", "poetry.lock", ".git", ".jj", ".venv/"]
+
+[language-server.ty]
+command = "ty"
+args = ["server"]
 
 [[language]]
 name = "bash"

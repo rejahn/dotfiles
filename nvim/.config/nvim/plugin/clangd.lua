@@ -12,6 +12,6 @@ vim.api.nvim_create_autocmd("FileType", {
             "https://github.com/p00f/clangd_extensions.nvim",
         })
 
-        require("lsp.cpp").setup_clangd_extensions(opts)
+        require("clangd_extensions").setup(opts)
     end,
 })
