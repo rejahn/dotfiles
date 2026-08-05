@@ -19,6 +19,10 @@ if command -sq direnv
     direnv hook fish | source
 end
 
+if command -sq fzf
+    fzf --fish | source
+end
+
 # Replace ls with eza
 alias ls='eza -al --color=always --group-directories-first'
 alias la='eza -a --color=always --group-directories-first'
