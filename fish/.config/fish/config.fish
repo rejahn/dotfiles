@@ -23,6 +23,8 @@ if command -sq fzf
     fzf --fish | source
 end
 
+fish_add_path ~/.nix-profile/bin
+
 # Replace ls with eza
 alias ls='eza -al --color=always --group-directories-first'
 alias la='eza -a --color=always --group-directories-first'

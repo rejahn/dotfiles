@@ -1,5 +1,4 @@
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
-spawn-sh-at-startup "gnome-keyring-daemon --start --components=secrets,pkcs11,ssh"
 
 prefer-no-csd
 
@@ -209,8 +208,8 @@ window-rule {
     // This regular expression is intentionally made as specific as possible,
     // since this is the default config, and we want no false positives.
     // You can get away with just app-id="wezterm" if you want.
-    match app-id=r#"^org\.wezfurlong\.wezterm$"#
-    default-column-width { proportion 0.5; }
+    // match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    // default-column-width { proportion 0.5; }
 }
 
 // Open the Firefox picture-in-picture player as floating by default.
@@ -244,12 +243,12 @@ window-rule {
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    Mod+Return hotkey-overlay-title="Open a Terminal: Ghostty" { spawn "ghostty"; }
+    Mod+Return hotkey-overlay-title="Open a Terminal: Foot" { spawn "foot"; }
 
     Mod+D hotkey-overlay-title="Run Application Launcher" { spawn "fuzzel"; }
     // Mod+D hotkey-overlay-title="Run Application Launcher" { spawn "rofi" "-show" "drun"; }
 
-    // DMS lock reference:
+    // DMS lock:
     Super+Alt+L hotkey-overlay-title="Lock Niri" { spawn "dms" "ipc" "call" "lock" "lock"; }
 
     // Super+Alt+L hotkey-overlay-title="Lock Niri" { spawn "noctalia" "msg" "session" "lock"; }
