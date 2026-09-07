@@ -19,7 +19,6 @@ vim.pack.add({
 
 local ai = require("mini.ai")
 local diff = require("mini.diff")
-local tabline = require("mini.tabline")
 local pairs = require("mini.pairs")
 local surround = require("mini.surround")
 local move = require("mini.move")
@@ -75,12 +74,6 @@ vim.api.nvim_set_hl(0, "MiniDiffOverChangeBuf", { link = "DiffAdd" })
 vim.api.nvim_set_hl(0, "MiniDiffOverContext", { link = "DiffChange" })
 vim.api.nvim_set_hl(0, "MiniDiffOverContextBuf", { link = "DiffChange" })
 
-tabline.setup({
-	show_icons = false,
-	tabpage_section = "right",
-	show_single_tab = false,
-})
-
 pairs.setup(mini_util.pairs({
 	modes = { insert = true, command = true, terminal = false },
 	skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
@@ -91,8 +84,6 @@ pairs.setup(mini_util.pairs({
 
 surround.setup(surround_opts)
 
-vim.keymap.set("n", "<S-h>", "<Cmd>bprevious<CR>", { silent = true, desc = "Prev Buffer" })
-vim.keymap.set("n", "<S-l>", "<Cmd>bnext<CR>", { silent = true, desc = "Next Buffer" })
 vim.keymap.set("n", "<leader>gho", diff.toggle_overlay, { silent = true, desc = "Toggle Git Diff Overlay" })
 
 move.setup()
