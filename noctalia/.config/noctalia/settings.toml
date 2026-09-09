@@ -1,12 +1,27 @@
+[accessibility]
+ui_scale = 0.95000000670552254
+
 [bar.default]
 center = [ "clock", "date", "notifications" ]
 end = [ "tray", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "control-center", "session" ]
 font_family = "Noto Sans"
-font_scale = 0.91999998688697815
+font_scale = 0.99999998509883881
 font_weight = 400
-scale = 0.95000000670552254
+scale = 1.0000000074505806
 start = [ "launcher", "workspaces", "sysmon" ]
 thickness = 28
+
+[desktop_widgets]
+enabled = false
+schema_version = 2
+widget_order = []
+
+    [desktop_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [desktop_widgets.widget]
 
 [idle]
 behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
@@ -96,11 +111,11 @@ widget_order = [ "lockscreen-login-box@DP-3", "lockscreen-login-box@HDMI-A-1", "
     [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
     box_height = 196.0
     box_width = 810.0
-    cx = 768.0
-    cy = 778.0
+    cx = 960.0
+    cy = 972.5
     output = "eDP-1"
-    placement_height = 960.0
-    placement_width = 1536.0
+    placement_height = 1200.0
+    placement_width = 1920.0
     rotation = 0.0
     type = "login_box"
 
@@ -140,7 +155,9 @@ enabled = [ "noctalia/bitwarden", "noctalia/notes", "noctalia/screen_recorder" ]
     name = "community"
 
 [shell]
+avatar_path = "/home/renan/Pictures/Wallpapers/daniel-leone-g30P1zcOzXo-unsplash.jpg"
 font_family = "Noto Sans"
+niri_overview_type_to_launch_enabled = true
 
 [theme]
 source = "wallpaper"
@@ -149,7 +166,29 @@ source = "wallpaper"
 directory = "/home/renan/Pictures/Wallpapers"
 
     [wallpaper.default]
-    path = "/home/renan/Pictures/Wallpapers/dunes.jpg"
+    path = "/home/renan/Pictures/Wallpapers/kalen-emsley-Bkci_8qcdvQ-unsplash.jpg"
 
     [wallpaper.last]
-    path = "/home/renan/Pictures/Wallpapers/dunes.jpg"
+    path = "/home/renan/Pictures/Wallpapers/kalen-emsley-Bkci_8qcdvQ-unsplash.jpg"
+
+    [wallpaper.monitors.DP-3]
+    path = "/home/renan/Pictures/Wallpapers/kalen-emsley-Bkci_8qcdvQ-unsplash.jpg"
+
+    [wallpaper.monitors.HDMI-A-1]
+    path = "/home/renan/Pictures/Wallpapers/kalen-emsley-Bkci_8qcdvQ-unsplash.jpg"
+
+    [wallpaper.monitors.eDP-1]
+    path = "/home/renan/Pictures/Wallpapers/kalen-emsley-Bkci_8qcdvQ-unsplash.jpg"
+
+[widget.brightness]
+enabled = false
+
+[widget.control-center]
+enabled = false
+
+[widget.network]
+show_label = false
+vpn_status = "both"
+
+[widget.workspaces]
+active_pill_size = 1.75

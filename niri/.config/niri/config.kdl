@@ -1,6 +1,6 @@
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 spawn-at-startup "gnome-keyring-daemon" "--start" "--components=secrets,pkcs11"
-
+spawn-at-startup "noctalia"
 prefer-no-csd
 
 input {
@@ -30,7 +30,8 @@ input {
 
 switch-events {
     lid-close {
-        spawn "dms" "ipc" "call" "lock" "lock"
+        // spawn "dms" "ipc" "call" "lock" "lock"
+        spawn "noctalia" "msg" "session" "lock"
     }
 }
 // You can configure outputs by their name, which you can find
@@ -63,19 +64,26 @@ switch-events {
 // Active monitor setup.
 // Niri disables the internal laptop panel automatically when the lid is closed.
 
-// output "DP-3" {
-//     mode "2560x1440@59.951"
-//     scale 1
-//     transform "normal"
-//     position x=0 y=0
-// }
-//
-// output "eDP-1" {
-//     mode "1920x1200@60.026"
-//     scale 1
-//     transform "normal"
-//     position x=320 y=1440
-// }
+output "DP-3" {
+    mode "2560x1440@59.951"
+    scale 1
+    transform "normal"
+    position x=2560 y=0
+}
+
+output "HDMI-A-1" {
+    mode "2560x1440@59.951"
+    scale 1
+    transform "normal"
+    position x=0 y=0
+}
+
+output "eDP-1" {
+    mode "1920x1200@60.026"
+    scale 1
+    transform "normal"
+    position x=2560 y=1440
+}
 
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
@@ -250,9 +258,9 @@ binds {
     // Mod+D hotkey-overlay-title="Run Application Launcher" { spawn "rofi" "-show" "drun"; }
 
     // DMS lock:
-    Super+Alt+L hotkey-overlay-title="Lock Niri" { spawn "dms" "ipc" "call" "lock" "lock"; }
+    // Super+Alt+L hotkey-overlay-title="Lock Niri" { spawn "dms" "ipc" "call" "lock" "lock"; }
 
-    // Super+Alt+L hotkey-overlay-title="Lock Niri" { spawn "noctalia" "msg" "session" "lock"; }
+    Super+Alt+L hotkey-overlay-title="Lock Niri" { spawn "noctalia" "msg" "session" "lock"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
@@ -517,5 +525,3 @@ binds {
     Mod+Shift+P { power-off-monitors; }
 }
 
-include "dms/cursor.kdl"
-include "dms/outputs.kdl"
