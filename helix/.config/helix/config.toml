@@ -1,4 +1,4 @@
-theme = "nvim-dark"
+theme = "fleet_dark"
 
 [keys.normal]
 C-o = ":config-open"
@@ -28,7 +28,7 @@ middle-click-paste = true
 auto-completion = true
 auto-format = true
 color-modes = true
-default-yank-register = "*"
+default-yank-register = "+"
 end-of-line-diagnostics = "disable"
 bufferline = "multiple"
 
