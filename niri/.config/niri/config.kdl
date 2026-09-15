@@ -3,6 +3,10 @@ spawn-at-startup "gnome-keyring-daemon" "--start" "--components=secrets,pkcs11"
 spawn-at-startup "noctalia"
 prefer-no-csd
 
+environment {
+    GTK_IM_MODULE "simple"
+}
+
 input {
     keyboard {
         xkb {
@@ -232,7 +236,7 @@ window-rule {
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    Mod+Return hotkey-overlay-title="Open a Terminal: Foot" { spawn "foot"; }
+    Mod+Return hotkey-overlay-title="Open a Terminal: Ghostty" { spawn "ghostty"; }
 
     Mod+D hotkey-overlay-title="Run Application Launcher" { spawn "fuzzel"; }
     // Mod+D hotkey-overlay-title="Run Application Launcher" { spawn "rofi" "-show" "drun"; }
@@ -504,4 +508,3 @@ binds {
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
 }
-
