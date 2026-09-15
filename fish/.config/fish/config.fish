@@ -4,6 +4,12 @@ if test -d ~/.local/bin
     fish_add_path -g ~/.local/bin
 end
 
+if test -d ~/.nix-profile/bin
+    fish_add_path -g ~/.nix-profile/bin
+end
+
+
+
 set -gx EDITOR nvim
 set -gx VISUAL nvim
 
@@ -36,3 +42,7 @@ alias ...='cd ../..'
 alias lg='lazygit'
 alias vim='nvim'
 alias htop='btop'
+alias bw="flatpak run --command=bw com.bitwarden.desktop"
+
+# opencode
+fish_add_path /home/renan/.opencode/bin

@@ -1,4 +1,4 @@
-# theme = Adwaita Dark
+theme = Tomorrow Night
 font-family = Noto Sans Mono
 window-title-font-family = Noto Sans Mono
 font-size = 11
@@ -30,4 +30,3 @@ keybind = ctrl+j=goto_split:bottom
 keybind = ctrl+k=goto_split:top
 keybind = ctrl+l=goto_split:right
 
-keybind = ctrl+s>r=reload_config
