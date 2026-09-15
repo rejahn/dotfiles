@@ -21,7 +21,7 @@ vim.opt.signcolumn = "auto"
 vim.o.cmdheight = 0
 vim.opt.more = false
 vim.o.clipboard = "unnamedplus"
--- vim.opt.guicursor = ""
+vim.opt.guicursor = ""
 vim.opt.scrolloff = 10
 
 vim.opt.swapfile = false

@@ -13,7 +13,15 @@ vim.keymap.set("n", "<Leader>w", ":write<CR>")
 vim.keymap.set("n", "<Leader>x", ":wq<CR>")
 
 -- code actions
-vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = "Code action", silent = true })
+vim.keymap.set("n", "<leader>a", function()
+	local row = vim.api.nvim_win_get_cursor(0)[1]
+	vim.lsp.buf.code_action({
+		range = {
+			start = { row, 0 },
+			["end"] = { row, #vim.api.nvim_get_current_line() },
+		},
+	})
+end, { desc = "Code actions", silent = true })
 
 vim.keymap.set("n", "<leader>re", "<cmd>restart<cr>", { desc = "Restart config :restart)" })
 

@@ -7,8 +7,8 @@ require("conform").setup({
 		lua = { "stylua" },
 		python = { "ruff_organize_imports", "ruff_format" },
 		rust = { "rustfmt" },
-		c = {},
-		cpp = {},
+		c = { "clang_format" },
+		cpp = { "clang_format" },
 		objc = { "clang_format" },
 		objcpp = { "clang_format" },
 		javascript = { "prettier" },
@@ -17,7 +17,6 @@ require("conform").setup({
 		typescriptreact = { "prettier" },
 		json = { "prettier" },
 		yaml = { "prettier" },
-		["yaml.ansible"] = { "ansible-lint" },
 		markdown = { "prettier" },
 	},
 
