@@ -12,10 +12,13 @@ end
 
 set -gx EDITOR nvim
 set -gx VISUAL nvim
+set -gx FZF_CTRL_R_OPTS "--with-nth 3.. --bind 'alt-t:change-with-nth(2..|1,3..|3..)'"
 
 if test -f ~/.cargo/env.fish
     source ~/.cargo/env.fish
 end
+
+/home/renan/.local/bin/mise activate fish | source
 
 if command -sq zoxide
     zoxide init fish | source
@@ -43,6 +46,5 @@ alias lg='lazygit'
 alias vim='nvim'
 alias htop='btop'
 alias bw="flatpak run --command=bw com.bitwarden.desktop"
-
-# opencode
-fish_add_path /home/renan/.opencode/bin
+alias oc='opencode'
+alias zj='zellij'
