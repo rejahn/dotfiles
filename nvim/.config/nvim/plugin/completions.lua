@@ -7,7 +7,7 @@ vim.pack.add({
 })
 
 require("blink.cmp").setup({
-	keymap = { preset = "enter" },
+	keymap = require("keymaps").completion,
 	completion = { documentation = { auto_show = true } },
 	signature = {
 		enabled = true,

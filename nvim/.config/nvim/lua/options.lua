@@ -17,7 +17,7 @@ vim.opt.smartindent = true
 
 vim.opt.splitbelow = true
 vim.opt.splitright = true
-vim.opt.signcolumn = "auto"
+vim.opt.signcolumn = "yes"
 vim.o.cmdheight = 0
 vim.opt.more = false
 vim.o.clipboard = "unnamedplus"
@@ -38,6 +38,3 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.hl.on_yank()
 	end,
 })
-
--- setup diagnostics as virtual lines
-vim.diagnostic.config({ virtual_text = true, virtual_lines = { current_line = true } })

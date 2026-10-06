@@ -19,6 +19,8 @@ vim.pack.add({
 
 local ai = require("mini.ai")
 local diff = require("mini.diff")
+local git = require("mini.git")
+local jump2d = require("mini.jump2d")
 local pairs = require("mini.pairs")
 local surround = require("mini.surround")
 local move = require("mini.move")
@@ -41,7 +43,7 @@ ai.setup({
 			{ "%u[%l%d]+%f[^%l%d]", "%f[%S][%l%d]+%f[^%l%d]", "%f[%P][%l%d]+%f[^%l%d]", "^[%l%d]+%f[^%l%d]" },
 			"^().*()$",
 		},
-		g = ai.buffer,
+		g = mini_util.ai_buffer,
 		u = ai.gen_spec.function_call(),
 		U = ai.gen_spec.function_call({ name_pattern = "[%w_]" }),
 	},
@@ -83,8 +85,19 @@ pairs.setup(mini_util.pairs({
 }))
 
 surround.setup(surround_opts)
+git.setup()
+jump2d.setup({
+	mappings = {
+		start_jumping = "<leader>J",
+	},
+})
 
-vim.keymap.set("n", "<leader>gho", diff.toggle_overlay, { silent = true, desc = "Toggle Git Diff Overlay" })
+vim.keymap.set("n", "<leader>gd", diff.toggle_overlay, { silent = true, desc = "Toggle Git Diff Overlay" })
+vim.keymap.set("n", "<leader>gb", "<cmd>vertical Git blame -- %<cr>", { silent = true, desc = "Git Blame File" })
+vim.keymap.set({ "n", "x" }, "<leader>gh", "<cmd>lua MiniGit.show_at_cursor()<cr>", {
+	silent = true,
+	desc = "Git History at Cursor",
+})
 
 move.setup()
 basics.setup()
@@ -93,9 +106,55 @@ notify.setup()
 hipatterns.setup({
 	highlighters = {
 		hex_color = hipatterns.gen_highlighter.hex_color(),
+		url = { pattern = [=[%f[%w]https?://[^%s<>"'`]+]=], group = "Underlined" },
 		fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
 		hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
 		todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
 		note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
 	},
+})
+
+-- Reuse the existing session directory so previous workspaces remain available.
+require("mini.sessions").setup({
+	directory = vim.fn.stdpath("state") .. "/sessions",
+	file = "",
+	autoread = false,
+	autowrite = true,
+	verbose = { read = false, write = false, delete = true },
+})
+require("keymaps").sessions()
+
+local clue = require("mini.clue")
+clue.setup({
+	triggers = {
+		{ mode = { "n", "x" }, keys = "<leader>" },
+		{ mode = { "n", "x" }, keys = "g" },
+		{ mode = { "n", "x" }, keys = "z" },
+		{ mode = "n", keys = "<C-w>" },
+	},
+	clues = {
+		require("keymaps").clues,
+		clue.gen_clues.g(),
+		clue.gen_clues.z(),
+		clue.gen_clues.windows(),
+	},
+	window = {
+		delay = 300,
+		config = { width = "auto", border = "rounded" },
+	},
+})
+
+local function clue_highlights()
+	for _, group in ipairs({ "MiniClueDescGroup", "MiniClueDescSingle", "MiniClueNextKey", "MiniClueTitle" }) do
+		vim.api.nvim_set_hl(0, group, { link = "NormalFloat" })
+	end
+	for _, group in ipairs({ "MiniClueBorder", "MiniClueSeparator" }) do
+		vim.api.nvim_set_hl(0, group, { link = "Comment" })
+	end
+end
+
+clue_highlights()
+vim.api.nvim_create_autocmd("ColorScheme", {
+	group = vim.api.nvim_create_augroup("user_clue_highlights", { clear = true }),
+	callback = clue_highlights,
 })

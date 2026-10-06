@@ -1,7 +1,6 @@
 vim.pack.add({
 	"https://github.com/nvim-lua/plenary.nvim",
 	"https://github.com/neovim/nvim-lspconfig",
-	"https://github.com/Saghen/blink.cmp",
 })
 
 vim.diagnostic.config({
@@ -24,15 +23,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
 local on_attach = function(client, bufnr)
-	vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename symbol" })
-	vim.keymap.set("n", "ga", "<C-^>", { desc = "Go to alternate buffer" })
-	vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover documentation" })
-
-	if client.name == "clangd" then
-		vim.keymap.set("n", "<leader>ch", function()
-			require("clangd_extensions.switch_source_header").switch_source_header()
-		end, { buffer = bufnr, desc = "C/C++: Switch Source/Header" })
-	end
+	require("keymaps").lsp_attach(client, bufnr)
 
 	if client.server_capabilities.inlayHintProvider then
 		vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
@@ -85,8 +76,6 @@ setup("ty", {
 	settings = { ty = {} },
 })
 
-setup("taplo")
-
 setup("jsonls")
 
 setup("yamlls", {
@@ -100,5 +89,3 @@ setup("yamlls", {
 		},
 	},
 })
-
-setup("nil_ls")
