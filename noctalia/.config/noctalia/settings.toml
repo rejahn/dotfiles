@@ -1,58 +1,52 @@
-[accessibility]
-ui_scale = 0.95000000670552254
-
-[bar.default]
-center = [ "clock", "date", "notifications" ]
-end = [ "tray", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "control-center", "session" ]
-font_family = "Noto Sans"
-font_scale = 0.99999998509883881
-font_weight = 400
-scale = 1.0000000074505806
-start = [ "launcher", "workspaces", "sysmon" ]
-thickness = 28
-
-[desktop_widgets]
-enabled = false
-schema_version = 2
-widget_order = []
-
-    [desktop_widgets.grid]
-    cell_size = 16
-    major_interval = 4
-    visible = true
-
-    [desktop_widgets.widget]
-
-[idle]
-behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
-
-    [idle.behavior.lock]
-    action = "lock"
-    enabled = true
-    timeout = 600.0
-
-    [idle.behavior.lock-and-suspend]
-    action = "lock_and_suspend"
-    enabled = true
-    timeout = 900.0
-
-    [idle.behavior.screen-off]
-    action = "screen_off"
-    enabled = true
-    timeout = 660.0
-
-[location]
-auto_locate = true
+[lockscreen]
+transition = [ "stripes", "wipe", "zoom" ]
 
 [lockscreen_widgets]
-enabled = false
+enabled = true
 schema_version = 2
-widget_order = [ "lockscreen-login-box@DP-3", "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@eDP-1" ]
+widget_order = [
+    "lockscreen-login-box@DP-7",
+    "lockscreen-login-box@winit",
+    "lockscreen-login-box@DP-8",
+    "lockscreen-login-box@DP-1",
+    "lockscreen-login-box@DP-6",
+    "lockscreen-login-box@DP-5",
+    "lockscreen-login-box@eDP-1",
+    "lockscreen-login-box@DP-3",
+    "lockscreen-login-box@HDMI-A-1"
+]
 
     [lockscreen_widgets.grid]
     cell_size = 16
     major_interval = 4
     visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 960.0
+    cy = 943.5
+    output = "DP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
 
     [lockscreen_widgets.widget."lockscreen-login-box@DP-3"]
     box_height = 196.0
@@ -81,18 +75,18 @@ widget_order = [ "lockscreen-login-box@DP-3", "lockscreen-login-box@HDMI-A-1", "
         show_unlock_hint = true
         show_weather = true
 
-    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1"]
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-5"]
     box_height = 196.0
     box_width = 810.0
-    cx = 1280.0
-    cy = 1258.0
-    output = "HDMI-A-1"
-    placement_height = 1440.0
-    placement_width = 2560.0
+    cx = 960.0
+    cy = 898.0
+    output = "DP-5"
+    placement_height = 1080.0
+    placement_width = 1920.0
     rotation = 0.0
     type = "login_box"
 
-        [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-5".settings]
         background_color = "surface_variant"
         background_opacity = 0.88
         background_radius = 12.0
@@ -108,11 +102,120 @@ widget_order = [ "lockscreen-login-box@DP-3", "lockscreen-login-box@HDMI-A-1", "
         show_unlock_hint = true
         show_weather = true
 
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-6"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 1280.0
+    cy = 1197.3333740234375
+    output = "DP-6"
+    placement_height = 1440.0
+    placement_width = 2560.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-6".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-7"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 1920.0
+    cy = 1978.0
+    output = "DP-7"
+    placement_height = 2160.0
+    placement_width = 3840.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-7".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-8"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 960.0
+    cy = 898.0
+    output = "DP-8"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-8".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1"]
+    box_height = 70.0
+    box_width = 400.0
+    cx = 960.0
+    cy = 956.0
+    output = "HDMI-A-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = true
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "compact"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = false
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = false
+
     [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
     box_height = 196.0
     box_width = 810.0
     cx = 960.0
-    cy = 972.5
+    cy = 1018.0
+    enabled = true
     output = "eDP-1"
     placement_height = 1200.0
     placement_width = 1920.0
@@ -135,60 +238,60 @@ widget_order = [ "lockscreen-login-box@DP-3", "lockscreen-login-box@HDMI-A-1", "
         show_unlock_hint = true
         show_weather = true
 
-[osd]
-position = "bottom_center"
-position_vertical = "bottom_center"
+    [lockscreen_widgets.widget."lockscreen-login-box@winit"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 636.0
+    cy = 1220.0
+    output = "winit"
+    placement_height = 1402.0
+    placement_width = 1272.0
+    rotation = 0.0
+    type = "login_box"
 
-[plugins]
-auto_update = "official"
-enabled = [ "noctalia/bitwarden", "noctalia/notes", "noctalia/screen_recorder" ]
+        [lockscreen_widgets.widget."lockscreen-login-box@winit".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
 
-    [[plugins.source]]
-    kind = "git"
-    location = "https://github.com/noctalia-dev/official-plugins"
-    name = "official"
+[[plugins.source]]
+kind = "git"
+location = "https://github.com/noctalia-dev/official-plugins"
+name = "official"
 
-    [[plugins.source]]
-    enabled = false
-    kind = "git"
-    location = "https://github.com/noctalia-dev/community-plugins"
-    name = "community"
+[[plugins.source]]
+kind = "git"
+location = "https://github.com/noctalia-dev/community-plugins"
+name = "community"
 
 [shell]
-avatar_path = "/home/renan/Pictures/Wallpapers/daniel-leone-g30P1zcOzXo-unsplash.jpg"
-font_family = "Noto Sans"
-niri_overview_type_to_launch_enabled = true
+avatar_path = "/home/renan/Pictures/renan.png"
 
-[theme]
-source = "wallpaper"
+    [shell.session]
+    grid_columns = 5
 
-[wallpaper]
-directory = "/home/renan/Pictures/Wallpapers"
+[wallpaper.default]
+path = "/home/renan/Pictures/Wallpapers/kalen-emsley-Bkci_8qcdvQ-unsplash.jpg"
 
-    [wallpaper.default]
-    path = "/home/renan/Pictures/Wallpapers/kalen-emsley-Bkci_8qcdvQ-unsplash.jpg"
+[wallpaper.last]
+path = "/home/renan/Pictures/Wallpapers/kalen-emsley-Bkci_8qcdvQ-unsplash.jpg"
 
-    [wallpaper.last]
-    path = "/home/renan/Pictures/Wallpapers/kalen-emsley-Bkci_8qcdvQ-unsplash.jpg"
+[wallpaper.monitors.DP-1]
+path = "/home/renan/Pictures/Wallpapers/kalen-emsley-Bkci_8qcdvQ-unsplash.jpg"
 
-    [wallpaper.monitors.DP-3]
-    path = "/home/renan/Pictures/Wallpapers/kalen-emsley-Bkci_8qcdvQ-unsplash.jpg"
+[wallpaper.monitors.DP-3]
+path = "/home/renan/Pictures/Wallpapers/kalen-emsley-Bkci_8qcdvQ-unsplash.jpg"
 
-    [wallpaper.monitors.HDMI-A-1]
-    path = "/home/renan/Pictures/Wallpapers/kalen-emsley-Bkci_8qcdvQ-unsplash.jpg"
-
-    [wallpaper.monitors.eDP-1]
-    path = "/home/renan/Pictures/Wallpapers/kalen-emsley-Bkci_8qcdvQ-unsplash.jpg"
-
-[widget.brightness]
-enabled = false
-
-[widget.control-center]
-enabled = false
-
-[widget.network]
-show_label = false
-vpn_status = "both"
-
-[widget.workspaces]
-active_pill_size = 1.75
+[wallpaper.monitors.HDMI-A-1]
+path = "/home/renan/Pictures/Wallpapers/kalen-emsley-Bkci_8qcdvQ-unsplash.jpg"

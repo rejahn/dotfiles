@@ -1,6 +1,7 @@
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 spawn-at-startup "gnome-keyring-daemon" "--start" "--components=secrets,pkcs11"
 spawn-at-startup "noctalia"
+
 prefer-no-csd
 
 environment {
@@ -241,9 +242,7 @@ binds {
     Mod+D hotkey-overlay-title="Run Application Launcher" { spawn "fuzzel"; }
     // Mod+D hotkey-overlay-title="Run Application Launcher" { spawn "rofi" "-show" "drun"; }
 
-    // DMS lock:
     // Super+Alt+L hotkey-overlay-title="Lock Niri" { spawn "dms" "ipc" "call" "lock" "lock"; }
-
     Super+Alt+L hotkey-overlay-title="Lock Niri" { spawn "noctalia" "msg" "session" "lock"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
