@@ -1,23 +1,38 @@
 config_version = 14
 
+[bar.default]
+center = [ "clock", "date", "notifications" ]
+end = [
+    "media",
+    "tray",
+    "clipboard",
+    "network",
+    "bluetooth",
+    "volume",
+    "brightness",
+    "battery",
+    "control-center",
+    "session"
+]
+start = [ "launcher", "workspaces" ]
+
 [idle]
 behavior_order = [ "lock", "screen-off", "suspend" ]
 
-[idle.behavior.lock]
-timeout = 30
-action = "lock"
+    [idle.behavior.lock]
+    action = "lock"
+    enabled = true
+    timeout = 300.0
 
-[idle.behavior.screen-off]
-timeout = 30
-action = "screen_off"
+    [idle.behavior.screen-off]
+    action = "screen_off"
+    enabled = true
+    timeout = 330.0
 
-[idle.behavior.suspend]
-timeout = 300
-action = "lock_and_suspend"
-
-[bar.default]
-center = [ "clock", "date", "notifications" ]
-start = [ "launcher", "workspaces" ]
+    [idle.behavior.suspend]
+    action = "lock_and_suspend"
+    enabled = true
+    timeout = 900.0
 
 [lockscreen]
 transition = [ "stripes", "wipe", "zoom" ]
@@ -26,6 +41,8 @@ transition = [ "stripes", "wipe", "zoom" ]
 enabled = true
 schema_version = 2
 widget_order = [
+    "lockscreen-login-box@DP-10",
+    "lockscreen-login-box@DP-9",
     "lockscreen-login-box@DP-7",
     "lockscreen-login-box@winit",
     "lockscreen-login-box@DP-8",
@@ -54,6 +71,33 @@ widget_order = [
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-10"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 960.0
+    cy = 898.0
+    output = "DP-10"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-10".settings]
         background_color = "surface_variant"
         background_opacity = 0.88
         background_radius = 12.0
@@ -99,11 +143,11 @@ widget_order = [
     [lockscreen_widgets.widget."lockscreen-login-box@DP-5"]
     box_height = 196.0
     box_width = 810.0
-    cx = 960.0
-    cy = 898.0
+    cx = 1280.0
+    cy = 1197.3333740234375
     output = "DP-5"
-    placement_height = 1080.0
-    placement_width = 1920.0
+    placement_height = 1440.0
+    placement_width = 2560.0
     rotation = 0.0
     type = "login_box"
 
@@ -126,11 +170,11 @@ widget_order = [
     [lockscreen_widgets.widget."lockscreen-login-box@DP-6"]
     box_height = 196.0
     box_width = 810.0
-    cx = 1280.0
-    cy = 1197.3333740234375
+    cx = 960.0
+    cy = 898.0
     output = "DP-6"
-    placement_height = 1440.0
-    placement_width = 2560.0
+    placement_height = 1080.0
+    placement_width = 1920.0
     rotation = 0.0
     type = "login_box"
 
@@ -153,11 +197,11 @@ widget_order = [
     [lockscreen_widgets.widget."lockscreen-login-box@DP-7"]
     box_height = 196.0
     box_width = 810.0
-    cx = 1920.0
-    cy = 1978.0
+    cx = 1280.0
+    cy = 1318.666748046875
     output = "DP-7"
-    placement_height = 2160.0
-    placement_width = 3840.0
+    placement_height = 1440.0
+    placement_width = 2560.0
     rotation = 0.0
     type = "login_box"
 
@@ -189,6 +233,33 @@ widget_order = [
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@DP-8".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-9"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 1280.0
+    cy = 1258.0
+    output = "DP-9"
+    placement_height = 1440.0
+    placement_width = 2560.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-9".settings]
         background_color = "surface_variant"
         background_opacity = 0.88
         background_radius = 12.0
@@ -236,7 +307,6 @@ widget_order = [
     box_width = 400.0
     cx = 960.0
     cy = 1021.0
-    enabled = true
     output = "eDP-1"
     placement_height = 1200.0
     placement_width = 1920.0
@@ -306,20 +376,23 @@ font_family = "Noto Sans"
     [shell.session]
     grid_columns = 5
 
-[theme]
-source = "wallpaper"
-
 [wallpaper.default]
-path = "/home/renan/Pictures/Wallpapers/kalen-emsley-Bkci_8qcdvQ-unsplash.jpg"
+path = "/home/renan/Pictures/Wallpapers/daniel-leone-g30P1zcOzXo-unsplash.jpg"
 
 [wallpaper.last]
-path = "/home/renan/Pictures/Wallpapers/kalen-emsley-Bkci_8qcdvQ-unsplash.jpg"
+path = "/home/renan/Pictures/Wallpapers/daniel-leone-g30P1zcOzXo-unsplash.jpg"
 
 [wallpaper.monitors.DP-1]
 path = "/home/renan/Pictures/Wallpapers/kalen-emsley-Bkci_8qcdvQ-unsplash.jpg"
 
+[wallpaper.monitors.DP-10]
+path = "/home/renan/Pictures/Wallpapers/daniel-leone-g30P1zcOzXo-unsplash.jpg"
+
 [wallpaper.monitors.DP-3]
 path = "/home/renan/Pictures/Wallpapers/kalen-emsley-Bkci_8qcdvQ-unsplash.jpg"
+
+[wallpaper.monitors.DP-9]
+path = "/home/renan/Pictures/Wallpapers/daniel-leone-g30P1zcOzXo-unsplash.jpg"
 
 [wallpaper.monitors.HDMI-A-1]
 path = "/home/renan/Pictures/Wallpapers/kalen-emsley-Bkci_8qcdvQ-unsplash.jpg"
@@ -334,4 +407,4 @@ enabled = false
 show_label = false
 
 [widget.notifications]
-enabled = false
+enabled = true

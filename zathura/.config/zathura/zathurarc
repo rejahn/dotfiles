@@ -1,0 +1,4 @@
+set selection-clipboard clipboard
+map R rotate
+map i recolor
+map p print

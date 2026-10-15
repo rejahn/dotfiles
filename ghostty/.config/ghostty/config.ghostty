@@ -19,7 +19,7 @@ shell-integration-features = ssh-env,no-title,no-cursor
 
 mouse-hide-while-typing = true
 
-scrollback-limit = 1000000
+scrollback-limit = 1000000000
 
 window-save-state = always
 

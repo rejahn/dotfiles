@@ -47,4 +47,4 @@ alias vim='nvim'
 alias htop='btop'
 alias bw="flatpak run --command=bw com.bitwarden.desktop"
 alias oc='opencode'
-alias zj='zellij'
+alias yt-dlp='uvx yt-dlp'
