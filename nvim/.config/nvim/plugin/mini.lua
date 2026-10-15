@@ -22,6 +22,7 @@ local diff = require("mini.diff")
 local git = require("mini.git")
 local jump2d = require("mini.jump2d")
 local pairs = require("mini.pairs")
+local splitjoin = require("mini.splitjoin")
 local surround = require("mini.surround")
 local move = require("mini.move")
 local basics = require("mini.basics")
@@ -85,6 +86,7 @@ pairs.setup(mini_util.pairs({
 }))
 
 surround.setup(surround_opts)
+splitjoin.setup({ mappings = { toggle = "gS" } })
 git.setup()
 jump2d.setup({
 	mappings = {
@@ -102,6 +104,13 @@ vim.keymap.set({ "n", "x" }, "<leader>gh", "<cmd>lua MiniGit.show_at_cursor()<cr
 move.setup()
 basics.setup()
 notify.setup()
+local input = require("mini.input")
+input.setup({
+	scope = "editor",
+	handlers = {
+		view = input.gen_view.floatwin({ style = "BM" }),
+	},
+})
 
 hipatterns.setup({
 	highlighters = {
@@ -125,6 +134,11 @@ require("mini.sessions").setup({
 require("keymaps").sessions()
 
 local clue = require("mini.clue")
+local g_clues = vim.tbl_filter(function(item)
+	return not (item.mode == "n" and (item.keys == "gs" or item.keys == "gx"))
+end, clue.gen_clues.g())
+table.insert(g_clues, { mode = "n", keys = "gx", desc = "Open link" })
+clue.set_mapping_desc("n", "gx", "Open link")
 clue.setup({
 	triggers = {
 		{ mode = { "n", "x" }, keys = "<leader>" },
@@ -134,7 +148,7 @@ clue.setup({
 	},
 	clues = {
 		require("keymaps").clues,
-		clue.gen_clues.g(),
+		g_clues,
 		clue.gen_clues.z(),
 		clue.gen_clues.windows(),
 	},

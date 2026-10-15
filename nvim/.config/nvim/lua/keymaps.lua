@@ -1,4 +1,5 @@
 local M = {}
+local Snacks
 
 -- Navigate vim panes better
 vim.keymap.set("n", "<c-k>", ":wincmd k<CR>", { desc = "Focus window above" })
@@ -14,17 +15,6 @@ vim.keymap.set("x", "p", [["_dP]], { desc = "Paste over selection without losing
 vim.keymap.set("n", "<Leader>w", ":write<CR>", { desc = "Save file" })
 vim.keymap.set("n", "<Leader>x", ":wq<CR>", { desc = "Save and quit" })
 
--- code actions
-vim.keymap.set("n", "<leader>ca", function()
-	local row = vim.api.nvim_win_get_cursor(0)[1]
-	vim.lsp.buf.code_action({
-		range = {
-			start = { row, 0 },
-			["end"] = { row, #vim.api.nvim_get_current_line() },
-		},
-	})
-end, { desc = "Code actions", silent = true })
-
 -- improve indentation
 vim.keymap.set("v", "<", "<gv", { desc = "Unindent and keep selection" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent and keep selection" })
@@ -37,6 +27,7 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "move up in buffer with cursor 
 M.clues = {
 	{ mode = "n", keys = "<leader>b", desc = "Buffers" },
 	{ mode = "n", keys = "<leader>c", desc = "Code" },
+	{ mode = "n", keys = "<leader>d", desc = "Diagnostics" },
 	{ mode = { "n", "x" }, keys = "<leader>g", desc = "Git" },
 	{ mode = "n", keys = "<leader>q", desc = "Sessions" },
 	{ mode = "n", keys = "<leader>s", desc = "Search" },
@@ -44,79 +35,28 @@ M.clues = {
 }
 
 -- Pickers, explorer, Git, and toggles
-function M.snacks()
-	local Snacks = require("snacks")
+function M.snacks(snacks)
+	Snacks = snacks
+	local picker = Snacks.picker
 	local map = function(lhs, rhs, desc)
 		vim.keymap.set("n", lhs, rhs, { desc = desc, silent = true })
 	end
 
-	map("<leader>f", function()
-		Snacks.picker.files()
-	end, "Find files")
-	map("<leader>,", function()
-		Snacks.picker.buffers()
-	end, "Buffers")
-	map("<leader>j", function()
-		Snacks.picker.jumps()
-	end, "Jumplist")
+	map("<leader>f", picker.files, "Find files")
+	map("<leader>,", picker.buffers, "Buffers")
+	map("<leader>j", picker.jumps, "Jumplist")
 	map("<leader>lg", function()
 		Snacks.lazygit()
 	end, "Lazygit")
-	map("<leader>s:", function()
-		Snacks.picker.command_history()
-	end, "Command History")
-	map("<leader>/", function()
-		Snacks.picker.grep()
-	end, "Live grep")
-	map("<leader>sc", function()
-		Snacks.picker.commands()
-	end, "Commands")
-	map("<leader>?", function()
-		Snacks.picker.help()
-	end, "Help tags")
-	map("<leader>d", function()
-		Snacks.picker.diagnostics_buffer()
-	end, "Document diagnostics")
-	map("<leader>D", function()
-		Snacks.picker.diagnostics()
-	end, "Workspace diagnostics")
-	map("<leader>cs", function()
-		Snacks.picker.lsp_symbols()
-	end, "Document symbols")
-	map("<leader>cS", function()
-		Snacks.picker.lsp_workspace_symbols()
-	end, "LSP Workspace Symbols")
-	map("gd", function()
-		Snacks.picker.lsp_definitions()
-	end, "Goto Definition")
-	map("gD", function()
-		Snacks.picker.lsp_declarations()
-	end, "Goto Declaration")
-	map("grr", function()
-		Snacks.picker.lsp_references()
-	end, "References")
-	map("gI", function()
-		Snacks.picker.lsp_implementations()
-	end, "Goto Implementation")
-	map("gy", function()
-		Snacks.picker.lsp_type_definitions()
-	end, "Goto Type Definition")
-	map("gai", function()
-		Snacks.picker.lsp_incoming_calls()
-	end, "Incoming Calls")
-	map("gao", function()
-		Snacks.picker.lsp_outgoing_calls()
-	end, "Outgoing Calls")
+	map("<leader>s:", picker.command_history, "Command History")
+	map("<leader>/", picker.grep, "Live grep")
+	map("<leader>sc", picker.commands, "Commands")
+	map("<leader>?", picker.help, "Help tags")
+	map("grr", picker.lsp_references, "References")
 	map("<leader>e", function()
-		Snacks.explorer({ layout = { layout = { position = "right" } } })
-	end, "Explorer")
-	map("<leader>th", function()
-		Snacks.toggle.inlay_hints():toggle()
-	end, "Toggle Inlay Hints")
-	map("<leader>td", function()
-		Snacks.toggle.diagnostics():toggle()
-	end, "Toggle Diagnostics")
-	map("<leader>te", function()
+		Snacks.explorer({ layout = { hidden = { "input" }, layout = { position = "right" } } })
+	end, "File Explorer")
+	map("<leader>tt", function()
 		Snacks.terminal()
 	end, "Toggle Terminal")
 end
@@ -162,8 +102,22 @@ end
 
 -- Buffer-local LSP bindings
 function M.lsp_attach(client, bufnr)
-	vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename symbol" })
+	local map = function(lhs, rhs, desc)
+		vim.keymap.set("n", lhs, rhs, { buffer = bufnr, desc = desc, silent = true })
+	end
+
 	vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover documentation" })
+	map("<leader>a", vim.lsp.buf.code_action, "Code actions")
+	map("<leader>d", Snacks.picker.diagnostics_buffer, "Document diagnostics")
+	map("<leader>D", Snacks.picker.diagnostics, "Workspace diagnostics")
+	map("<leader>s", Snacks.picker.lsp_symbols, "Document symbols")
+	map("<leader>S", Snacks.picker.lsp_workspace_symbols, "Workspace symbols")
+	map("<leader>r", vim.lsp.buf.rename, "Rename symbol")
+	map("gd", Snacks.picker.lsp_definitions, "Goto Definition")
+	map("gD", Snacks.picker.lsp_declarations, "Goto Declaration")
+	map("gr", Snacks.picker.lsp_references, "References")
+	map("gi", Snacks.picker.lsp_implementations, "Goto Implementation")
+	map("gy", Snacks.picker.lsp_type_definitions, "Goto Type Definition")
 
 	if client.name == "clangd" then
 		vim.keymap.set("n", "<leader>ch", function()

@@ -1,61 +1,47 @@
 local opts = {
 	bigfile = { enabled = true },
-	git = { enabled = true },
-	input = { enabled = true },
 	quickfile = { enabled = true },
-	scroll = { enabled = false },
-	words = { enabled = false },
-	rename = { enabled = true },
-	toggle = { enabled = true },
-	lazygit = { enabled = true },
+	explorer = { enabled = true },
 	picker = {
 		enabled = true,
+		prompt = "",
 		sources = {
 			files = {
-				layout = { preset = "default" },
 				hidden = true,
-				ignored = true,
-				follow = false,
 				exclude = {
-					".git/",
-					".venv/",
-					"node_modules/",
-					".cache/",
-					"build/",
-					"dist/",
-					"target/",
-					"__pycache__/",
+					".git",
+					".git/**",
+					".DS_Store",
+					".venv",
+					".venv/**",
+					"node_modules",
+					"node_modules/**",
+					".cache",
+					".cache/**",
+					"dist",
+					"dist/**",
+					"build",
+					"build/**",
+					"target",
+					"target/**",
+					"__pycache__",
+					"__pycache__/**",
 				},
 			},
 			explorer = {
 				hidden = true,
 			},
-			grep = {
-				layout = { preset = "default" },
-				hidden = true,
-				ignored = false,
-				exclude = {
-					".git/",
-					"node_modules/",
-					".cache/",
-					"build/",
-					"dist/",
-					"target/",
-				},
-			},
+		},
+		icons = {
+			files = { enabled = false },
 		},
 	},
+	lazygit = { enabled = true },
 	indent = {
 		enabled = true,
-		animate = {
-			enabled = false,
-		},
-		indent = {
-			char = "┊",
-		},
-		scope = {
-			enabled = false,
-		},
+		animate = { enabled = false },
+		indent = { char = "┊" },
+		scope = { enabled = false },
 	},
 }
 
@@ -66,4 +52,4 @@ vim.pack.add({
 local Snacks = require("snacks")
 Snacks.setup(opts)
 
-require("keymaps").snacks()
+require("keymaps").snacks(Snacks)

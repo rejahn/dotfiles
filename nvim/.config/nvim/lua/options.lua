@@ -8,6 +8,7 @@ vim.g.netrw_banner = 0
 -- line numbers setting
 vim.wo.relativenumber = true
 vim.wo.number = true
+vim.o.winborder = "rounded"
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
