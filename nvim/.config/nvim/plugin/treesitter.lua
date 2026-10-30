@@ -1,9 +1,9 @@
 local ts_opts = {
     ensure_installed = {
-        "bash", "c", "cpp", "cmake", "json",
+        "astro", "bash", "c", "cpp", "cmake", "css", "html", "javascript", "json",
         "lua", "luadoc", "luap", "markdown", "markdown_inline",
         "python", "query", "regex", "rust", "ron", "toml",
-        "vim", "vimdoc", "xml", "yaml",
+        "tsx", "typescript", "vim", "vimdoc", "xml", "yaml",
     },
     highlight = { enable = true, disable = {} },
     indent = { enable = true, disable = {} },

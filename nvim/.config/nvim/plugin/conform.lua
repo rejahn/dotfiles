@@ -16,7 +16,12 @@ require("conform").setup({
 		typescript = { "prettier" },
 		typescriptreact = { "prettier" },
 		json = { "prettier" },
+		jsonc = { "prettier" },
 		yaml = { "prettier" },
+		["yaml.ansible"] = { "prettier" },
+		astro = { "prettier" },
+		html = { "prettier" },
+		css = { "prettier" },
 		markdown = { "prettier" },
 	},
 

@@ -1,12 +1,6 @@
 local M = {}
 local Snacks
 
--- Navigate vim panes better
-vim.keymap.set("n", "<c-k>", ":wincmd k<CR>", { desc = "Focus window above" })
-vim.keymap.set("n", "<c-j>", ":wincmd j<CR>", { desc = "Focus window below" })
-vim.keymap.set("n", "<c-h>", ":wincmd h<CR>", { desc = "Focus window left" })
-vim.keymap.set("n", "<c-l>", ":wincmd l<CR>", { desc = "Focus window right" })
-
 vim.keymap.set("n", "<leader>h", ":nohlsearch<CR>", { desc = "Clear search highlights" })
 
 vim.keymap.set("x", "p", [["_dP]], { desc = "Paste over selection without losing yanked text" })

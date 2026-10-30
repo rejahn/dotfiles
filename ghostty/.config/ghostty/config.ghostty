@@ -6,8 +6,11 @@ font-size = 11
 cursor-style = block
 cursor-style-blink = false
 
-copy-on-select = clipboard
+window-decoration = server
+gtk-titlebar-style = native
 
+copy-on-select = clipboard
+fullscreen = false
 window-padding-balance = true
 window-theme = ghostty
 gtk-wide-tabs = false
@@ -24,9 +27,4 @@ scrollback-limit = 1000000000
 window-save-state = always
 
 app-notifications = no-clipboard-copy
-
-keybind = ctrl+h=goto_split:left
-keybind = ctrl+j=goto_split:bottom
-keybind = ctrl+k=goto_split:top
-keybind = ctrl+l=goto_split:right
 
