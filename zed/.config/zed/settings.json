@@ -1,5 +1,10 @@
 {
   // Auto-update settings
+  "agent": {
+    "button": false,
+    "favorite_models": [],
+    "model_parameters": []
+  },
   "prettier": {
     "parser": ""
   },
@@ -66,7 +71,7 @@
   "buffer_font_family": "Noto Sans Mono",
   "terminal": {
     "dock": "bottom",
-    "font_family": "JetBrainsMono Nerd Font Mono",
+    "font_family": "Noto Sans Mono",
     "font_size": 14,
     "line_height": "standard"
   },
@@ -139,6 +144,27 @@
       "settings": {
         "yaml": {
           "keyOrdering": false
+        }
+      }
+    },
+    "ruff": {
+      "initialization_options": {
+        "settings": {
+          "lint": {
+            "enable": true
+          },
+          "format": {
+            "preview": false
+          },
+          "organizeImports": true,
+          "fixAll": true
+        }
+      }
+    },
+    "ty": {
+      "initialization_options": {
+        "settings": {
+          "diagnosticMode": "workspace"
         }
       }
     }
