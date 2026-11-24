@@ -21,18 +21,25 @@ vim.diagnostic.config({
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
-local on_attach = function(client, bufnr)
-	require("keymaps").lsp_attach(client, bufnr)
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("user_lsp_attach", { clear = true }),
+	callback = function(ev)
+		local client = vim.lsp.get_client_by_id(ev.data.client_id)
+		if not client then
+			return
+		end
 
-	if client.server_capabilities.inlayHintProvider then
-		vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-	end
-end
+		require("keymaps").lsp_attach(client, ev.buf)
+
+		if client.server_capabilities.inlayHintProvider then
+			vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
+		end
+	end,
+})
 
 -- Common config
 local function setup(name, config)
 	config = config or {}
-	config.on_attach = on_attach
 	config.capabilities = capabilities
 	vim.lsp.config(name, config)
 	vim.lsp.enable(name)
@@ -45,12 +52,6 @@ setup("lua_ls", {
 })
 
 setup("rust_analyzer", {
-	root_dir = function(bufnr, on_dir)
-		local root = vim.fs.root(vim.api.nvim_buf_get_name(bufnr), { "Cargo.toml" })
-		if root then
-			on_dir(root)
-		end
-	end,
 	settings = {
 		["rust-analyzer"] = {
 			cargo = { features = "all" },
@@ -76,6 +77,52 @@ setup("ty", {
 })
 
 setup("jsonls")
+
+setup("ts_ls")
+setup("html")
+setup("cssls")
+
+setup("astro", {
+	before_init = function(_, config)
+		local tsdk = require("lspconfig.util").get_typescript_server_path(config.root_dir)
+		if tsdk == "" then
+			tsdk = vim.fs.joinpath(
+				vim.fn.stdpath("data"),
+				"mason/packages/astro-language-server/node_modules/typescript/lib"
+			)
+		end
+		config.init_options = config.init_options or {}
+		config.init_options.typescript = config.init_options.typescript or {}
+		config.init_options.typescript.tsdk = tsdk
+	end,
+})
+
+local ansible_bin = vim.fs.joinpath(vim.fn.stdpath("data"), "mason/packages/ansible-lint/venv/bin")
+
+setup("ansiblels", {
+	-- Keep Ansible's helper commands and Python in the same Mason environment.
+	cmd_env = { PATH = ansible_bin .. ":" .. vim.env.PATH },
+	settings = {
+		ansible = {
+			python = { interpreterPath = vim.fs.joinpath(ansible_bin, "python") },
+			ansible = { path = vim.fs.joinpath(ansible_bin, "ansible") },
+		},
+	},
+	root_markers = {
+		"ansible.cfg",
+		".ansible-lint",
+		".ansible-lint.yml",
+		".ansible-lint.yaml",
+		"inventory.ini",
+		"all.yml",
+		"all.yaml",
+		"roles",
+		"group_vars",
+		"host_vars",
+		"playbooks",
+		".git",
+	},
+})
 
 setup("yamlls", {
 	settings = {

@@ -1,3 +1,8 @@
+vim.pack.add({
+	"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
+	"https://github.com/nvim-mini/mini.nvim",
+})
+
 local mini_util = require("util.mini")
 
 local surround_opts = {
@@ -12,15 +17,9 @@ local surround_opts = {
 	},
 }
 
-vim.pack.add({
-	"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
-	"https://github.com/nvim-mini/mini.nvim",
-})
-
 local ai = require("mini.ai")
 local diff = require("mini.diff")
 local git = require("mini.git")
-local jump2d = require("mini.jump2d")
 local pairs = require("mini.pairs")
 local splitjoin = require("mini.splitjoin")
 local surround = require("mini.surround")
@@ -28,6 +27,10 @@ local move = require("mini.move")
 local basics = require("mini.basics")
 local notify = require("mini.notify")
 local hipatterns = require("mini.hipatterns")
+local icons = require("mini.icons")
+
+icons.setup()
+icons.mock_nvim_web_devicons()
 
 ai.setup({
 	n_lines = 500,
@@ -60,8 +63,8 @@ diff.setup({
 		},
 	},
 	mappings = {
-		apply = "gh",
-		reset = "gH",
+		apply = "",
+		reset = "",
 		textobject = "gh",
 		goto_first = "[H",
 		goto_prev = "[h",
@@ -88,12 +91,19 @@ pairs.setup(mini_util.pairs({
 surround.setup(surround_opts)
 splitjoin.setup({ mappings = { toggle = "gS" } })
 git.setup()
-jump2d.setup({
-	mappings = {
-		start_jumping = "<leader>J",
-	},
-})
 
+vim.keymap.set("n", "<leader>gr", function()
+	return diff.operator("reset") .. "gh"
+end, { expr = true, remap = true, desc = "Restore hunk" })
+vim.keymap.set("n", "<leader>gR", function()
+	return diff.operator("reset") .. "_"
+end, { expr = true, desc = "Restore line" })
+vim.keymap.set("n", "<leader>ga", function()
+	return diff.operator("apply") .. "gh"
+end, { expr = true, remap = true, desc = "Apply (stage) hunk" })
+vim.keymap.set("n", "<leader>gy", function()
+	return diff.operator("yank") .. "gh"
+end, { expr = true, remap = true, desc = "Yank original hunk" })
 vim.keymap.set("n", "<leader>gd", diff.toggle_overlay, { silent = true, desc = "Toggle Git Diff Overlay" })
 vim.keymap.set("n", "<leader>gb", "<cmd>vertical Git blame -- %<cr>", { silent = true, desc = "Git Blame File" })
 vim.keymap.set({ "n", "x" }, "<leader>gh", "<cmd>lua MiniGit.show_at_cursor()<cr>", {
@@ -134,11 +144,6 @@ require("mini.sessions").setup({
 require("keymaps").sessions()
 
 local clue = require("mini.clue")
-local g_clues = vim.tbl_filter(function(item)
-	return not (item.mode == "n" and (item.keys == "gs" or item.keys == "gx"))
-end, clue.gen_clues.g())
-table.insert(g_clues, { mode = "n", keys = "gx", desc = "Open link" })
-clue.set_mapping_desc("n", "gx", "Open link")
 clue.setup({
 	triggers = {
 		{ mode = { "n", "x" }, keys = "<leader>" },
@@ -146,29 +151,11 @@ clue.setup({
 		{ mode = { "n", "x" }, keys = "z" },
 		{ mode = "n", keys = "<C-w>" },
 	},
+	window = { delay = 300 },
 	clues = {
 		require("keymaps").clues,
-		g_clues,
+		clue.gen_clues.g(),
 		clue.gen_clues.z(),
 		clue.gen_clues.windows(),
 	},
-	window = {
-		delay = 300,
-		config = { width = "auto", border = "rounded" },
-	},
-})
-
-local function clue_highlights()
-	for _, group in ipairs({ "MiniClueDescGroup", "MiniClueDescSingle", "MiniClueNextKey", "MiniClueTitle" }) do
-		vim.api.nvim_set_hl(0, group, { link = "NormalFloat" })
-	end
-	for _, group in ipairs({ "MiniClueBorder", "MiniClueSeparator" }) do
-		vim.api.nvim_set_hl(0, group, { link = "Comment" })
-	end
-end
-
-clue_highlights()
-vim.api.nvim_create_autocmd("ColorScheme", {
-	group = vim.api.nvim_create_augroup("user_clue_highlights", { clear = true }),
-	callback = clue_highlights,
 })

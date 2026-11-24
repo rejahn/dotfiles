@@ -27,7 +27,7 @@ vim.opt.scrolloff = 10
 
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = vim.fn.stdpath("data") .. "/undodir"
+-- vim.opt.undodir = vim.fn.stdpath("data") .. "/undodir"
 -- vim.opt.undofile = true
 
 -- one status line, even on vsplits.

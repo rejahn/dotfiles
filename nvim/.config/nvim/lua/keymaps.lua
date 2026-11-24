@@ -19,9 +19,11 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "move up in buffer with cursor 
 
 -- Prefix labels for mini.clue; actual bindings supply their own descriptions.
 M.clues = {
+	{ mode = { "n", "x" }, keys = "gs", desc = "Surround" },
 	{ mode = "n", keys = "<leader>b", desc = "Buffers" },
 	{ mode = "n", keys = "<leader>c", desc = "Code" },
 	{ mode = "n", keys = "<leader>d", desc = "Diagnostics" },
+	{ mode = "n", keys = "<leader>f", desc = "Find" },
 	{ mode = { "n", "x" }, keys = "<leader>g", desc = "Git" },
 	{ mode = "n", keys = "<leader>q", desc = "Sessions" },
 	{ mode = "n", keys = "<leader>s", desc = "Search" },
@@ -36,17 +38,17 @@ function M.snacks(snacks)
 		vim.keymap.set("n", lhs, rhs, { desc = desc, silent = true })
 	end
 
-	map("<leader>f", picker.files, "Find files")
-	map("<leader>,", picker.buffers, "Buffers")
-	map("<leader>j", picker.jumps, "Jumplist")
+	map("<leader>ff", picker.files, "Find files")
+	map("<leader>fb", picker.buffers, "Buffers")
+	map("<leader>fj", picker.jumps, "Jumplist")
 	map("<leader>lg", function()
 		Snacks.lazygit()
 	end, "Lazygit")
-	map("<leader>s:", picker.command_history, "Command History")
-	map("<leader>/", picker.grep, "Live grep")
-	map("<leader>sc", picker.commands, "Commands")
-	map("<leader>?", picker.help, "Help tags")
-	map("grr", picker.lsp_references, "References")
+	map("<leader>f:", picker.command_history, "Command History")
+	map("<leader>fg", picker.grep, "Live grep")
+	map("<leader>fc", picker.commands, "Commands")
+	map("<leader>fh", picker.help, "Help tags")
+	map("<leader>fr", picker.lsp_references, "References")
 	map("<leader>e", function()
 		Snacks.explorer({ layout = { hidden = { "input" }, layout = { position = "right" } } })
 	end, "File Explorer")
@@ -102,10 +104,10 @@ function M.lsp_attach(client, bufnr)
 
 	vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover documentation" })
 	map("<leader>a", vim.lsp.buf.code_action, "Code actions")
-	map("<leader>d", Snacks.picker.diagnostics_buffer, "Document diagnostics")
-	map("<leader>D", Snacks.picker.diagnostics, "Workspace diagnostics")
-	map("<leader>s", Snacks.picker.lsp_symbols, "Document symbols")
-	map("<leader>S", Snacks.picker.lsp_workspace_symbols, "Workspace symbols")
+	map("<leader>fd", Snacks.picker.diagnostics_buffer, "Document diagnostics")
+	map("<leader>fD", Snacks.picker.diagnostics, "Workspace diagnostics")
+	map("<leader>fs", Snacks.picker.lsp_symbols, "Document symbols")
+	map("<leader>fS", Snacks.picker.lsp_workspace_symbols, "Workspace symbols")
 	map("<leader>r", vim.lsp.buf.rename, "Rename symbol")
 	map("gd", Snacks.picker.lsp_definitions, "Goto Definition")
 	map("gD", Snacks.picker.lsp_declarations, "Goto Declaration")

@@ -32,6 +32,9 @@ require("conform").setup({
 	},
 
 	format_on_save = function(bufnr)
+		if vim.g.disable_autoformat then
+			return
+		end
 		return {
 			bufnr = bufnr,
 			timeout_ms = 1000,

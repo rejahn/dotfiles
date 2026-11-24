@@ -10,8 +10,9 @@ require("material").setup({
 	plugins = {
 		"blink",
 		"mini",
-		"nvim-web-devicons",
 	},
+
+	lualine_style = "stealth",
 })
 
 vim.cmd.colorscheme("material-deep-ocean")
